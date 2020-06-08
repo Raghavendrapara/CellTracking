@@ -12,8 +12,16 @@ public class ImageLoader {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
        ImageLoader ob=new ImageLoader();
-		int x=ob.loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST");
-		
+		int x=ob.loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG");
+		//File a=new File("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG");
+		//String arr[]=a.list(); 
+		  
+        //find no. of entries in the directory 
+       // int n=arr.length; 
+
+        //displaying the entries 
+        //for (int i = 0; i < n ; i++) { 
+          //  System.out.println(arr[i]); }
 		System.out.println(x);
 	}
 
@@ -26,6 +34,7 @@ private int loadImages(String directory)
 	for (File file : images) {
 		if (file.isFile()) {
 			this.images.add(file.getName());
+			System.out.println(file.getName());
 		}
 	}
 	return this.images.size();
