@@ -8,11 +8,11 @@ import ij.ImageStack;
 import ij.gui.Roi;
 import java.util.regex.*;
 public class ImageLoader {
-	private List<String> images;
-	public void main(String[] args) {
+	private List<String> images=new ArrayList<>();
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-        new ImageJ();
-		int x=loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST");
+       ImageLoader ob=new ImageLoader();
+		int x=ob.loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST");
 		
 		System.out.println(x);
 	}
