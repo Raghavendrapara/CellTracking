@@ -1,12 +1,20 @@
 package imag;
-
 import java.io.File;
 import java.util.*;
 import ij.IJ;
+import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
 import ij.gui.Roi;
 import java.util.regex.*;
+import ij.gui.TextRoi;
+import ij.io.RoiDecoder;
+import ij.io.RoiEncoder;
+import ij.plugin.filter.RankFilters;
+import ij.plugin.frame.RoiManager;
+import ij.process.FloatProcessor;
+import ij.process.ImageProcessor;
+
 public class ImageLoader {
 	private List<String> images=new ArrayList<>();
 	public static void main(String[] args) {
@@ -23,6 +31,15 @@ public class ImageLoader {
         //for (int i = 0; i < n ; i++) { 
           //  System.out.println(arr[i]); }
 		System.out.println(x);
+		new ImageJ();
+		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000");
+		//IJ.run("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
+		ImagePlus fi=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
+	    ImageProcessor ip=IJ.getImage().getProcessor();
+		int width=ip.getWidth();
+		//int height=ip.getHeight();
+		
+		System.out.println(width);
 	}
 
 private int loadImages(String directory)
