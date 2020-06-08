@@ -6,6 +6,7 @@ import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
 import ij.gui.Roi;
+import ij.gui.Wand;
 import java.util.regex.*;
 import ij.gui.TextRoi;
 import ij.io.RoiDecoder;
@@ -32,14 +33,22 @@ public class ImageLoader {
 		System.out.println(x);
 		
 		new ImageJ();
-		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000");
+		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
 		//IJ.run("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
 		ImagePlus fi=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
-	    ImageProcessor ip=IJ.getImage().getProcessor();
+	    ImageProcessor ip=fi.getProcessor();
 		int width=ip.getWidth();
 		//int height=ip.getHeight();
+		//fi.show();
+		//System.out.println(width);
+		Wand wa=new Wand(ip);
+		wa.autoOutline(275, 164);
+		for(int i=0;i<wa.xpoints.length && (wa.xpoints[i]>0 || wa.ypoints[i]>0);i++)
+		{
+			System.out.println(wa.xpoints[i]+" "+wa.ypoints[i]);
+		}
 		
-		System.out.println(width);
+		//System.out.println(IJ.doWand(275, 164,1,"4-connected"));
 		
 			}
 	
