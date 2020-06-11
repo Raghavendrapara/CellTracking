@@ -17,24 +17,25 @@ import ij.plugin.frame.RoiManager;
 import ij.process.FloatProcessor;
 import ij.process.ImageProcessor;
 public class WandMath {
-	private List<String> images=new ArrayList<>();
+	private static List<String> images=new ArrayList<>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-       //File a=new File("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG");
-		//String arr[]=a.list(); 
+       File a=new File("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG");
+	   String arr[]=a.list(); 
 		  
         //find no. of entries in the directory 
-       // int n=arr.length; 
-
+         int n=loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG"); 
+         
         //displaying the entries 
-        //for (int i = 0; i < n ; i++) { 
+         
           //  System.out.println(arr[i]); }
 		//System.out.println(x);
 		
 		new ImageJ();
-		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
+		for (int k = 0; k < n ; k++) {
+		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"+images.get(k));
 		//IJ.run("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
-		ImagePlus fi=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
+		ImagePlus fi=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"+images.get(k));
 	    ImageProcessor ip=fi.getProcessor();
 		//int width=ip.getWidth();
 		//int height=ip.getHeight();
@@ -66,7 +67,7 @@ public class WandMath {
 		      }
 		System.out.println(x.size());
 		System.out.println(y.size());
-		
+		}
 		//System.out.println(IJ.doWand(275, 164,1,"4-connected"));
 		
 			}
@@ -85,6 +86,54 @@ public class WandMath {
 	
 			return true;
 	}
+	private static int loadImages(String directory)
+	{
+		images.clear();
+		File folder = new File(directory);
+		File[] image = sortImages(folder.listFiles());
+
+		for (File file : image) {
+			if (file.isFile()) {
+				images.add(file.getName());
+				//System.out.println(file.getName());
+			}
+		}
+		//ImageStack on=loadFeatureStack(images[0].getName());
+		return images.size();
+	}
+	private static File[] sortImages(File[] images) {
+		final Pattern p = Pattern.compile("\\d+");
+		Arrays.sort(images, new  Comparator<File>(){
+			@Override public int compare(File o1, File o2) {
+				Matcher m = p.matcher(o1.getName());
+				Integer number1 = null;
+				if (!m.find()) {
+					return o1.getName().compareTo(o2.getName());
+				}
+				else {
+					Integer number2 = null;
+					number1 = Integer.parseInt(m.group());
+					m = p.matcher(o2.getName());
+					if (!m.find()) {
+						return o1.getName().compareTo(o2.getName());
+					}
+					else {
+						number2 = Integer.parseInt(m.group());
+						int comparison = number1.compareTo(number2);
+						if (comparison != 0) {
+							return comparison;
+						}
+						else {
+							return o1.getName().compareTo(o2.getName());
+						}
+					}
+				}
+			}}
+				);
+		return images;
+	}
+	
+
 }
 
 
