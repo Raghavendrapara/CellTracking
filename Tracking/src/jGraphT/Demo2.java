@@ -3,6 +3,7 @@ package jGraphT;
 import java.util.Set;
 
 import org.jgrapht.Graph;
+import org.jgrapht.alg.*;
 import org.jgrapht.alg.cycle.*;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
