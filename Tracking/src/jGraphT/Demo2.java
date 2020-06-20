@@ -8,21 +8,10 @@ import org.jgrapht.alg.cycle.*;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.traverse.TopologicalOrderIterator;
-	/***
-	 This class is a demonstration program for creating a dependency chart,
-	 directed graph, then locating and outputting any implicit loops,
-	 cycles.
-	 **/
+	
 	public class Demo2 {
 
-	   /**
-	    Test creating a directed graph, checking it for cycles and either
-	    outputting cycles detected or topological ordering if not.
-
-	    @param createCycles true - create a directed graph which contains
-	    cycles.  false - create a directed graph which does not contain
-	    any cycles.
-	    */
+	
 	   public static void test(boolean createCycles) {
 	      CycleDetector<String, DefaultEdge> cycleDetector;
 	      Graph<String, DefaultEdge> g;
@@ -100,12 +89,7 @@ import org.jgrapht.traverse.TopologicalOrderIterator;
 	      }
 	   }
 
-	   /**
-	    Generate two cases, one with cycles, this is dependencies and one
-	    without.
-
-	    @param args Ignored.
-	    */
+	  
 	   public static void main(String [] args) {
 	      System.out.println("\nCase 1: There are cycles.");
 	      test(true);
@@ -113,7 +97,6 @@ import org.jgrapht.traverse.TopologicalOrderIterator;
 	      System.out.println("\nCase 2: There are no cycles.");
 	      test(false);
 
-	      System.out.println("\nAll done");
-	      System.exit(0);
+	    
 	   }
 	}

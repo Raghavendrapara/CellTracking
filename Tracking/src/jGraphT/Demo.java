@@ -10,17 +10,7 @@ package jGraphT;
 		import org.jgrapht.graph.DefaultEdge;
 		import org.jgrapht.Graph;
 
-		/**
-		 * This class demonstrates some of the operations that can be performed on directed graphs. After
-		 * constructing a basic directed graph, it computes all the strongly connected components of this
-		 * graph. It then finds the shortest path from one vertex to another using Dijkstra's shortest path
-		 * algorithm. The sample code should help to clarify to users of JGraphT that the class
-		 * org.jgrapht.alg.shortestpath.DijkstraShortestPath can be used to find shortest paths within
-		 * directed graphs.
-		 *
-		 * @author Minh Van Nguyen
-		 * @since 2008-01-17
-		 */
+		
 		public class Demo
 		{
 		    public static void main(String args[])
