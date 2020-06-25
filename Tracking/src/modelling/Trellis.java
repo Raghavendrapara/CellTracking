@@ -84,7 +84,7 @@ void HighestScoringPath(Arraylist<Arc> Arcs, double aScore) //Implementation of 
 
                           ArrayList<Integer> y3=prevIndex.get(t);
                           y3.set(n,pIndex);
-                          bestArcs.set(t,y3;
+                          bestArcs.set(t,y3);
          
 		          }
                 }
