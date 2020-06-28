@@ -7,6 +7,10 @@ public class Node {
 	ArrayList<Arc> ForwardArc;
 	ArrayList<Arc> BackwardArc;
 	
+	Node(int aIndex)
+	{
+		Index=aIndex;
+	}
 	
 	void addForwardArc(Arc aArc)
 	{
@@ -32,6 +36,10 @@ public class Node {
 	Arc getForwardArc(int indx)
 	{
 		return ForwardArc.get(indx);
+	}
+	int getIndex()
+	{
+		return Index;
 	}
 	
 	Arc getBackwardArc(int indx)

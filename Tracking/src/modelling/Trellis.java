@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class Trellis
 {
+	ArrayList<Arc> Arcs; double aScore;
 // Default constructor used to make it possible to inherit from the class.
-ArrayList<ArrayList<Nodes>> mNodes;//Layer number wise storage of Nodes for each tiff image 
+ArrayList<ArrayList<Node>> mNodes;//Layer number wise storage of Nodes for each tiff image 
 int mNumT;//No. Of tiff images/layers
 Trellis(int aNumT)
 {
@@ -30,7 +31,7 @@ Node GetNode(int aT, int aN)
 	return mNodes.get(aT).get(aN);//Layer Number aT and Node number aN
 }
 
-void HighestScoringPath(Arraylist<Arc> Arcs, double aScore) //Implementation of the pseudo code for Viterbi Algorithm
+void HighestScoringPath() //Implementation of the pseudo code for Viterbi Algorithm
 {
 
 	ArrayList<ArrayList<Arc>> bestArcs;		//Arc simply denotes the edges carrying the same naming as used in the paperper
@@ -45,7 +46,7 @@ void HighestScoringPath(Arraylist<Arc> Arcs, double aScore) //Implementation of 
 		
 		for(int i=0;i<x1.size();i++)
 		    {
-			x1.set(i,-(Integer.MAX_VALUE));
+			x1.set(i,-(Double.MAX_VALUE));
 			x2.set(i, -1);
 	            }
 	        
@@ -66,11 +67,12 @@ void HighestScoringPath(Arraylist<Arc> Arcs, double aScore) //Implementation of 
 	{
              Node node = mNodes.get(t).get(n);
 		
-		for (int i=0; i<node.GetNumBackwardArcs(); i++) 
+		for (int i=0; i<node.getNumOfForArcs(); i++) 
 		{
-			  Arc bArc     = node.GetBackwardArc(i);
-                          int pIndex   = bArc.GetStartNode().GetIndex();
-                          double score = bestScores.get(t-1).get(pIndex) + bArc.GetScore();
+			              Arc bArc     = node.getBackwardArc(i);
+                          int pIndex   = bArc.GetStart().getIndex();
+                          double score = bestScores.get(t-1).get(pIndex) + bArc.Score();
+                          
                           if (i==0 || score > bestScores.get(t).get(n))
                           {
                 	
@@ -82,7 +84,7 @@ void HighestScoringPath(Arraylist<Arc> Arcs, double aScore) //Implementation of 
                           y2.set(n,score);
                           bestScores.set(t,y2);
 
-                          ArrayList<Integer> y3=prevIndex.get(t);
+                          ArrayList<Arc> y3=prevIndex.get(t);
                           y3.set(n,pIndex);
                           bestArcs.set(t,y3);
          
@@ -103,7 +105,7 @@ void HighestScoringPath(Arraylist<Arc> Arcs, double aScore) //Implementation of 
 	int maxIndex = endIndex;
         for (int t=mNumT-1; t>0; t--)
         {
-	aArcs.add(bestArcs.get(t).get(maxIndex));
+	    Arcs.add(bestArcs.get(t).get(maxIndex));
         maxIndex = prevIndex.get(t).get(maxIndex);
         }
 
