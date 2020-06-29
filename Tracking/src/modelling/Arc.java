@@ -3,7 +3,7 @@ package modelling;
 public class Arc {
 	
 	Node mStart,mEnd;
-	
+	double score;
 	Arc(Node aStart,Node aEnd)
 	{
 		mStart=aStart;
@@ -19,6 +19,7 @@ public class Arc {
 	{
 		return mEnd;
 	}
+	
 	double score()
 	{
 	return 1.0;	
