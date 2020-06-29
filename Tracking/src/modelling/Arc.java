@@ -19,10 +19,10 @@ public class Arc {
 	{
 		return mEnd;
 	}
-	/*double score()
+	double score()
 	{
-		
+	return 1.0;	
 	}
-	*/
+	
 
 }

@@ -34,9 +34,9 @@ Node GetNode(int aT, int aN)
 void HighestScoringPath() //Implementation of the pseudo code for Viterbi Algorithm
 {
 
-	ArrayList<ArrayList<Arc>> bestArcs;		//Arc simply denotes the edges carrying the same naming as used in the paperper
-	ArrayList<ArrayList<Double>> bestScores;
-	ArrayList<ArrayList<Integer>> prevIndex;		
+	ArrayList<ArrayList<Arc>> bestArcs=new ArrayList<>();		//Arc simply denotes the edges carrying the same naming as used in the paperper
+	ArrayList<ArrayList<Double>> bestScores=new ArrayList<>();
+	ArrayList<ArrayList<Integer>> prevIndex=new ArrayList<>();		
 
 	for (int t=0; t<mNumT; t++) 
 	{
@@ -55,9 +55,9 @@ void HighestScoringPath() //Implementation of the pseudo code for Viterbi Algori
 	}
 
 	// Set the initial scores to 0.
-	ArrayList<Double> d=mNodes.get(0);
+	ArrayList<Double> d=bestScores.get(0);
 	for (int n=0; n<mNodes.get(0).size(); n++) {
-        d.add(n,0);
+        d.add(n,0.0);
     }
     bestScores.set(0,d);
 	// Go through the layers one by one to find the highest scoring path from the beginning of the Trellis to the end.
@@ -71,7 +71,7 @@ void HighestScoringPath() //Implementation of the pseudo code for Viterbi Algori
 		{
 			              Arc bArc     = node.getBackwardArc(i);
                           int pIndex   = bArc.GetStart().getIndex();
-                          double score = bestScores.get(t-1).get(pIndex) + bArc.Score();
+                          double score = bestScores.get(t-1).get(pIndex) + bArc.score();
                           
                           if (i==0 || score > bestScores.get(t).get(n))
                           {
@@ -84,9 +84,9 @@ void HighestScoringPath() //Implementation of the pseudo code for Viterbi Algori
                           y2.set(n,score);
                           bestScores.set(t,y2);
 
-                          ArrayList<Arc> y3=prevIndex.get(t);
+                          ArrayList<Integer> y3=prevIndex.get(t);
                           y3.set(n,pIndex);
-                          bestArcs.set(t,y3);
+                          prevIndex.set(t,y3);
          
 		          }
                 }
