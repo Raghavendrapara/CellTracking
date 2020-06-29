@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +21,7 @@ import ij.ImageStack;
 import ij.LookUpTable;
 import ij.Prefs;
 import ij.gui.Roi;
+import ij.measure.ResultsTable;
 import ij.plugin.filter.Analyzer;
 import ij.plugin.filter.ParticleAnalyzer;
 import ij.plugin.frame.RoiManager;
@@ -30,7 +33,8 @@ import ij.process.ImageProcessor;
 public class GroundTruthExtractor {
 
 	static Roi roi[][];
-	public static void main(String[] args) throws IOException {
+	public ArrayList<Features> st;
+	    public void getValues(int i) throws IOException {
 		// TODO Auto-generated method stub
 		String inputPath="/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/";
 		new ImageJ();
@@ -39,17 +43,15 @@ public class GroundTruthExtractor {
 		System.out.println(images.size());
 		RoiManager roiManager= new RoiManager();
 		roi=new Roi[images.size()][10];
-		int j=0;
-		for(String image:images) {
-			
-		ImagePlus currentImage= IJ.openImage(inputPath+image);	
-		 extracter.runextracter(j,currentImage, roiManager, 1, 10);
-		 j++;
+		
+		ImagePlus currentImage= IJ.openImage(inputPath+images.get(i));	
+		 extracter.runextracter(currentImage, roiManager, 0,255);
+		 
 		// break;
 		}
-	    for(int i=0;i<10 && roi[114][i]!=null;i++)
-		System.out.println(roi[114][i].getContourCentroid()[0]+"                     "+roi[114][i].getContourCentroid()[1]);
-	}
+	//    for(int i=0;i<10 && roi[0][i]!=null;i++)
+		//System.out.println(roi[0][i].getContourCentroid()[0]+"                     "+roi[114][i].getContourCentroid()[1]);
+	
 	
 	private File[] sortImages(File[] images) {
 		final Pattern p = Pattern.compile("\\d+");
@@ -95,8 +97,8 @@ public class GroundTruthExtractor {
 		return imageList;
 	}
 	
-	public void runextracter(int i,ImagePlus currentImage, RoiManager roiManager, int minThreshold, int maxThreshold) throws IOException{
-int c=0;//Roi roi[]=new Roi[1000];
+	public void runextracter(ImagePlus currentImage, RoiManager roiManager, int minThreshold, int maxThreshold) throws IOException{
+        ResultsTable xx=new ResultsTable();
 		for(int threshold=minThreshold; threshold<=maxThreshold; threshold++) {
 			ImagePlus copyImage= currentImage.duplicate();
 			
@@ -105,25 +107,55 @@ int c=0;//Roi roi[]=new Roi[1000];
 			for(int j=0; j<inputStack.getSize();j++) {
 				ImageProcessor ip=inputStack.getProcessor(j+1);
 				
-				ImagePlus temp=new ImagePlus("temp",ip);
+				ImagePlus temp=new ImagePlus("1.0",ip);
 				ip.setThreshold(threshold, threshold, ImageProcessor.RED_LUT);
 				applyShortOrFloatThreshold(temp);
 				ip.invert();
 			//	temp.show();
 				ParticleAnalyzer.setRoiManager(roiManager);
-				ParticleAnalyzer analyzer= new ParticleAnalyzer(ParticleAnalyzer.ADD_TO_MANAGER,Analyzer.getMeasurements(),null,1.0, Double.POSITIVE_INFINITY);
+				ParticleAnalyzer analyzer= new ParticleAnalyzer(ParticleAnalyzer.ADD_TO_MANAGER,Analyzer.getMeasurements(),xx,1.0, Double.POSITIVE_INFINITY);
 				analyzer.analyze(temp);
-
-				
-				
+				Analyzer.setMeasurements(65535);
+				xx=Analyzer.getResultsTable();
 				}
+			
 		}
-		Roi r[]=roiManager.getRoisAsArray();
+		
+	
+     	String arr[]=xx.getHeadings();
+		int n=arr.length;
+	    double val[]=new double[n+1];
+		
+		for(int k=0;k<xx.size();k++)
+		{
+			String ss=xx.getRowAsString(k);
+			StringTokenizer cc=new StringTokenizer(ss);
+			for(int k1=0;k1<=n;k1++)
+				val[k1]=Double.valueOf(cc.nextToken());
+				
+			Features xy=new Features(arr,val);
+			st.add(xy);
+		}
+		
+		//xx.show("Table");
+	//	for(int k1=0;k1<n;k1++)
+		//	System.out.print(arr[k1]+"    ");
+		//System.out.println();
+		//for(int k1=0;k1<xx.size();k1++) {
+	    	//for(int k=0;k<val[0].length;k++)
+			//System.out.print(val[k1][k]+" ");
+			//System.out.println();}
+		
+		
+		xx.reset();
+
+	/*	Roi r[]=roiManager.getRoisAsArray();
 		roiManager.reset();
 		for(int k=0;k<r.length;k++)
 			roi[i][k]=r[k];
+			*/
+		
 	}
-	
 	
 	/* ImageJ thresholding  for float and Short Images*/
 	public void applyShortOrFloatThreshold(ImagePlus imp) {

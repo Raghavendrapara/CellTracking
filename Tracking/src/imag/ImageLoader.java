@@ -1,4 +1,5 @@
 package imag;
+import org.apache.commons.math3.analysis.function.Gaussian;
 import java.io.File;
 import java.util.*;
 import ij.IJ;
