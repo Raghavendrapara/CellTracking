@@ -33,14 +33,14 @@ import ij.process.ImageProcessor;
 public class GroundTruthExtractor {
 
 	static Roi roi[][];
-	public ArrayList<Features> st;
+	public static ArrayList<Features> FeatureSet=new ArrayList<>();
 	    public void getValues(int i) throws IOException {
 		// TODO Auto-generated method stub
 		String inputPath="/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/";
-		new ImageJ();
+		//new ImageJ();
 		GroundTruthExtractor extracter= new GroundTruthExtractor();
 		List<String> images=extracter.loadImages(inputPath);
-		System.out.println(images.size());
+		//System.out.println(images.size());
 		RoiManager roiManager= new RoiManager();
 		roi=new Roi[images.size()][10];
 		
@@ -115,7 +115,7 @@ public class GroundTruthExtractor {
 				ParticleAnalyzer.setRoiManager(roiManager);
 				ParticleAnalyzer analyzer= new ParticleAnalyzer(ParticleAnalyzer.ADD_TO_MANAGER,Analyzer.getMeasurements(),xx,1.0, Double.POSITIVE_INFINITY);
 				analyzer.analyze(temp);
-				Analyzer.setMeasurements(65535);
+				Analyzer.setMeasurements(65536-1);
 				xx=Analyzer.getResultsTable();
 				}
 			
@@ -123,6 +123,7 @@ public class GroundTruthExtractor {
 		
 	
      	String arr[]=xx.getHeadings();
+     //	System.out.println(Arrays.toString(arr));
 		int n=arr.length;
 	    double val[]=new double[n+1];
 		
@@ -133,8 +134,10 @@ public class GroundTruthExtractor {
 			for(int k1=0;k1<=n;k1++)
 				val[k1]=Double.valueOf(cc.nextToken());
 				
+	//		System.out.println(Arrays.toString(val));
 			Features xy=new Features(arr,val);
-			st.add(xy);
+		//	System.out.println(xy.getFeatureName().get(1));
+			FeatureSet.add(xy);
 		}
 		
 		//xx.show("Table");
