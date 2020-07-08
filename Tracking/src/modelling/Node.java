@@ -10,8 +10,8 @@ public class Node {
 	int Index;
 	ArrayList<Arc> ForwardArc;
 	ArrayList<Arc> BackwardArc;
-	HashMap<Integer,String> ID1=new HashMap<>();              //FeatureNames
-	HashMap<Integer,Double> ID2=new HashMap<>();              //FeatureValues
+	HashMap<Integer,String> id1=new HashMap<>();              //FeatureNames
+	HashMap<Integer,Double> id2=new HashMap<>();              //FeatureValues
 	
 	Node(int aIndex)
 	{
@@ -54,12 +54,13 @@ public class Node {
 		return BackwardArc.get(indx);
 	}
 	
+	@SuppressWarnings("static-access")
 	void getFeatureMap(int i,int j) throws IOException
 	{
 		GroundTruthExtractor ob=new GroundTruthExtractor();
 		ob.getValues(i);
-		ID1=ob.st.get(j).FeatureNames;
-		ID2=ob.st.get(j).FeatureValues;
+		id1=ob.FeatureSet.get(j).featureNames;
+		id2=ob.FeatureSet.get(j).featureValues;
 	}
 	
 }

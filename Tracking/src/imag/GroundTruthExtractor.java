@@ -29,20 +29,23 @@ import ij.process.ByteProcessor;
 
 import ij.process.ImageProcessor;
 
+//Implement Using ROI getStatistics-ImageStatistics
 
 public class GroundTruthExtractor {
 
-	static Roi roi[][];
+	//static Roi roi[][];
 	public static ArrayList<Features> FeatureSet=new ArrayList<>();
+	
 	    public void getValues(int i) throws IOException {
 		// TODO Auto-generated method stub
-		String inputPath="/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/";
-		//new ImageJ();
+	    //Change into formal form
+		String inputPath="/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"; 
+		new ImageJ();
 		GroundTruthExtractor extracter= new GroundTruthExtractor();
 		List<String> images=extracter.loadImages(inputPath);
 		//System.out.println(images.size());
-		RoiManager roiManager= new RoiManager();
-		roi=new Roi[images.size()][10];
+	     RoiManager roiManager= new RoiManager();
+		//roi=new Roi[images.size()][10];
 		
 		ImagePlus currentImage= IJ.openImage(inputPath+images.get(i));	
 		 extracter.runextracter(currentImage, roiManager, 0,255);
@@ -123,15 +126,21 @@ public class GroundTruthExtractor {
 		
 	
      	String arr[]=xx.getHeadings();
-     //	System.out.println(Arrays.toString(arr));
+  //   System.out.println(Arrays.toString(arr));
 		int n=arr.length;
+	//	System.out.println(n+"  "+xx.size());
 	    double val[]=new double[n+1];
 		
 		for(int k=0;k<xx.size();k++)
 		{
 			String ss=xx.getRowAsString(k);
+			ss=ss.replace("	"," ");
+			ss=ss.substring(ss.indexOf(" "));
+			ss.trim();
+			
+			//System.out.println(ss);
 			StringTokenizer cc=new StringTokenizer(ss);
-			for(int k1=0;k1<=n;k1++)
+			for(int k1=0;k1<n;k1++)
 				val[k1]=Double.valueOf(cc.nextToken());
 				
 	//		System.out.println(Arrays.toString(val));

@@ -13,9 +13,9 @@ public class test {
 
 		Pattern pattern=Pattern.compile(regex);
 		Matcher matcher=pattern.matcher(input);
-		while(matcher.find()) {
-		System.out.println(Double.valueOf(matcher.group()));
-		}
+		//while(matcher.find()) {
+		System.out.println("dfdfdf    kndkcd".indexOf(" "));
+		//}
 	}
 
 }

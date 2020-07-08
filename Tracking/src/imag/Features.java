@@ -4,18 +4,18 @@ import java.util.HashMap;
 
 public class Features {
 
-	public HashMap<Integer,String> FeatureNames=new HashMap<>();
-	public HashMap<Integer,Double> FeatureValues=new HashMap<>();
+	public HashMap<Integer,String> featureNames=new HashMap<>();
+	public HashMap<Integer,Double> featureValues=new HashMap<>();
 	
-Features(String a2[],double a3[])
+Features(String fnames[],double fvalues[])
 {
-	int n=a2.length;
+	int n=fnames.length;
 
     for(int i=0;i<n;i++)
     {
 	    
-    	FeatureNames.put(i+1,a2[i]);
-    	FeatureValues.put(i+1,a3[i]);
+    	featureNames.put(i+1,fnames[i]);
+    	featureValues.put(i+1,fvalues[i]);
     	
     }
 
@@ -23,11 +23,11 @@ Features(String a2[],double a3[])
 }
 HashMap<Integer,String> getFeatureName()
 {
-	return FeatureNames;
+	return featureNames;
 }
 
 HashMap<Integer,Double> getFeatureValue()
 {
-	return FeatureValues;
+	return featureValues;
 }
 }
