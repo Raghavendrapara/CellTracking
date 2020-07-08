@@ -5,6 +5,12 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ij.ImageJ;
+import ij.ImagePlus;
 //import activeSegmentation.gui.Gui;
 import ij.WindowManager;
 
@@ -82,21 +90,22 @@ private static JButton addButton( final String label, final ImageIcon icon, fina
 	{ 
 		if(event ==SELECT_BUTTON_PRESSED ){
 			JFileChooser file=new JFileChooser();
-			file.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			file.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			file.setAcceptAllFileFilterUsed(false);
 			int rVal = file.showOpenDialog(null);
 			if (rVal == JFileChooser.APPROVE_OPTION) {
 			 File f=file.getSelectedFile();
 			 String fileName=f.getPath(); 
 			 
-			 Process(f);
+			 Process(fileName);
 			// new Gui(projectManager);
 			// new Gui2(projectManager);
 			}
 		}
 
 		if(event ==OPEN_BUTTON_PRESSED ){
-			JFileChooser fileChooser = new JFileChooser();
+			//JFileChooser fileChooser = new JFileChooser();
+System.out.println("Start to Label");
 
 			
 			// new Gui2(projectManager);
@@ -160,7 +169,7 @@ private static JFrame createProject(){
 	return mainFrame;
 
 }
-static void Process(File file)
+static void Process(String fileName)
 {
 	JFrame events=new JFrame();
 	events.getContentPane().setBackground( Color.GRAY );
@@ -179,6 +188,19 @@ static void Process(File file)
 	label.setBounds( 190, 150, 450, 100 );
 	label.setForeground(Color.BLACK);
 	controlFrame.add(label);
+	List<String> images=loadImages(fileName);
+	if(images.size()<10)
+		System.out.println("Dataset too small for labelling and training");
+	else {
+	System.out.println("Size=  "+images.size());
+	new ImageJ();
+	System.out.println("Size=  "+images.get(1));
+	int i=1;
+	ImagePlus fi=new ImagePlus(fileName+"/"+images.get(i));
+	fi.show();
+	}
+	
+	
 	//ImageIcon ss=new ImageIcon();
 	//java.net.URL imgURL = Testing.class.getResource("/home/raghavendra/Desktop/index,png");
 	//ss=new ImageIcon(imgURL,"FFF");
@@ -186,12 +208,58 @@ static void Process(File file)
 	controlFrame.add(addButton("edit",createImageIcon("openProject.png","add"),210, 250, 100, 60, OPEN_BUTTON_PRESSED));
 	controlFrame.add(addButton("delete",createImageIcon("openProject.png","add"),400, 250, 100, 60, OPEN_BUTTON_PRESSED));
 	
+	
 	controlFrame.setLocation(0, 0);
 	events.add(controlFrame);
 	events.setVisible(true);}
 
-}
 
+
+private static List<String> loadImages(String directory){
+	List<String> imageList= new ArrayList<String>();
+	File folder = new File(directory);
+	File[] images = sortImages(folder.listFiles());
+	
+	for (File file : images) {
+		if (file.isFile()) {
+			imageList.add(file.getName());
+		}
+	}
+	
+	return imageList;
+}
+private static File[] sortImages(File[] images) {
+	final Pattern p = Pattern.compile("\\d+");
+	Arrays.sort(images, new  Comparator<File>(){
+		public int compare(File o1, File o2) {
+			Matcher m = p.matcher(o1.getName());
+			Integer number1 = null;
+			if (!m.find()) {
+				return o1.getName().compareTo(o2.getName());
+			}
+			else {
+				Integer number2 = null;
+				number1 = Integer.parseInt(m.group());
+				m = p.matcher(o2.getName());
+				if (!m.find()) {
+					return o1.getName().compareTo(o2.getName());
+				}
+				else {
+					number2 = Integer.parseInt(m.group());
+					int comparison = number1.compareTo(number2);
+					if (comparison != 0) {
+						return comparison;
+					}
+					else {
+						return o1.getName().compareTo(o2.getName());
+					}
+				}
+			}
+		}}
+			);
+	return images;
+}
+}
 
 
 
