@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import ij.ImageJ;
 import ij.ImagePlus;
@@ -26,9 +27,17 @@ import ij.WindowManager;
 
 
 public class Testing {
+	
+	static String filePath;
+	
+	
 	final static ActionEvent SELECT_BUTTON_PRESSED = new ActionEvent(new Testing(), 1, "create" );
 	/** This {@link ActionEvent} is fired when the 'next' button is pressed. */
 	final static ActionEvent OPEN_BUTTON_PRESSED = new ActionEvent(new  Testing() , 2, "open" );
+	
+	final static ActionEvent CREATE_BUTTON_PRESSED = new ActionEvent(new  Testing() , 2, "create" );
+	final static ActionEvent EDIT_BUTTON_PRESSED = new ActionEvent(new  Testing() , 2, "edit" );
+	final static ActionEvent DELETE_BUTTON_PRESSED = new ActionEvent(new  Testing() , 2, "delete" );
 public static void main(String args[])
 {
 	JFrame mainFrame = new JFrame();
@@ -96,25 +105,53 @@ private static JButton addButton( final String label, final ImageIcon icon, fina
 			if (rVal == JFileChooser.APPROVE_OPTION) {
 			 File f=file.getSelectedFile();
 			 String fileName=f.getPath(); 
-			 
+			 filePath=fileName;
 			 Process(fileName);
 			// new Gui(projectManager);
 			// new Gui2(projectManager);
 			}
 		}
 
-		if(event ==OPEN_BUTTON_PRESSED ){
+		else if(event ==OPEN_BUTTON_PRESSED ){
 			//JFileChooser fileChooser = new JFileChooser();
 System.out.println("Start to Label");
 
 			
 			// new Gui2(projectManager);
 			}
+		else if(event == CREATE_BUTTON_PRESSED)
+		{
+			
+			List<String> images=loadImages(filePath);
+			JFrame trainCount=new JFrame();
+			JTextField cnt=new JTextField();
+			cnt.setBounds(50, 50, 100, 100);
+			JButton ok=new JButton("OK");
+			ok.setBounds(250, 250, 50, 50);
+            trainCount.add(cnt);			
+            trainCount.add(ok);
+		}
+		else if(event == EDIT_BUTTON_PRESSED)
+		{
+			
+			
+			
+		}
+		else if(event == DELETE_BUTTON_PRESSED)
+		{
+			
+			
+			
+			
+			
+		}
 		}
 
 
 	
-private static JFrame createProject(){
+/*
+  private static JFrame createProject(){
+ 
 	
 	JFrame mainFrame = new JFrame("Create Project");
 	mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -162,13 +199,14 @@ private static JFrame createProject(){
 
 	//controlFrame.add(addButton("Browse",null, 460, 300, 100, 30, TESTINGF_BUTTON_PRESSED));
 
-
+/*
 	controlFrame.setLocation(0, 0);
 	mainFrame.add(controlFrame);
 	mainFrame.setVisible(true);
 	return mainFrame;
 
 }
+*/
 static void Process(String fileName)
 {
 	JFrame events=new JFrame();
@@ -204,9 +242,9 @@ static void Process(String fileName)
 	//ImageIcon ss=new ImageIcon();
 	//java.net.URL imgURL = Testing.class.getResource("/home/raghavendra/Desktop/index,png");
 	//ss=new ImageIcon(imgURL,"FFF");
-	controlFrame.add(addButton("create",createImageIcon("addProject.png","add"), 30, 250, 100, 60, SELECT_BUTTON_PRESSED));
-	controlFrame.add(addButton("edit",createImageIcon("openProject.png","add"),210, 250, 100, 60, OPEN_BUTTON_PRESSED));
-	controlFrame.add(addButton("delete",createImageIcon("openProject.png","add"),400, 250, 100, 60, OPEN_BUTTON_PRESSED));
+	controlFrame.add(addButton("create",createImageIcon("addProject.png","add"), 30, 250, 100, 60, CREATE_BUTTON_PRESSED));
+	controlFrame.add(addButton("edit",createImageIcon("openProject.png","add"),210, 250, 100, 60, EDIT_BUTTON_PRESSED));
+	controlFrame.add(addButton("delete",createImageIcon("openProject.png","add"),400, 250, 100, 60, DELETE_BUTTON_PRESSED));
 	
 	
 	controlFrame.setLocation(0, 0);
