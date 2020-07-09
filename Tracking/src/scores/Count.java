@@ -17,8 +17,9 @@ Count()//From Classifier or GT
 
 }
 
-double Extrapolate()
+double Extrapolate(int length)
 {
+
 	return alpha*(Math.pow(1-alpha,length-k));
 	
 }
