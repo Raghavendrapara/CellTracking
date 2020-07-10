@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -30,14 +31,17 @@ public class Testing {
 	
 	static String filePath;
 	
+	static JTextField cn;
+	static int trainCnt;
+	final static ActionEvent SELECT_BUTTON_PRESSED = new ActionEvent(new Testing(), 1, "select" );
+	final static ActionEvent OK_BUTTON_PRESSED = new ActionEvent(new Testing(), 2, "select" );
 	
-	final static ActionEvent SELECT_BUTTON_PRESSED = new ActionEvent(new Testing(), 1, "create" );
 	/** This {@link ActionEvent} is fired when the 'next' button is pressed. */
-	final static ActionEvent OPEN_BUTTON_PRESSED = new ActionEvent(new  Testing() , 2, "open" );
-	
-	final static ActionEvent CREATE_BUTTON_PRESSED = new ActionEvent(new  Testing() , 2, "create" );
-	final static ActionEvent EDIT_BUTTON_PRESSED = new ActionEvent(new  Testing() , 2, "edit" );
-	final static ActionEvent DELETE_BUTTON_PRESSED = new ActionEvent(new  Testing() , 2, "delete" );
+	final static ActionEvent OPEN_BUTTON_PRESSED = new ActionEvent(new  Testing() , 3, "open" );
+	final static ActionEvent ADD_BUTTON_PRESSED = new ActionEvent(new  Testing() , 4, "add" );
+	final static ActionEvent CREATE_BUTTON_PRESSED = new ActionEvent(new  Testing() , 5, "create" );
+	final static ActionEvent EDIT_BUTTON_PRESSED = new ActionEvent(new  Testing() , 6, "edit" );
+	final static ActionEvent DELETE_BUTTON_PRESSED = new ActionEvent(new  Testing() , 7, "delete" );
 public static void main(String args[])
 {
 	JFrame mainFrame = new JFrame();
@@ -124,12 +128,30 @@ System.out.println("Start to Label");
 			
 			List<String> images=loadImages(filePath);
 			JFrame trainCount=new JFrame();
-			JTextField cnt=new JTextField();
-			cnt.setBounds(50, 50, 100, 100);
-			JButton ok=new JButton("OK");
-			ok.setBounds(250, 250, 50, 50);
-            trainCount.add(cnt);			
-            trainCount.add(ok);
+			//trainCount.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			trainCount.getContentPane().setBackground( Color.GRAY );
+			trainCount.setSize(300,400);
+			trainCount.setLocationRelativeTo(null);
+			cn=new JTextField();
+	
+			JPanel controlFrame= new JPanel();
+			controlFrame.setLayout(null);
+			controlFrame.setBackground(Color.GRAY );
+			JLabel trainNum= new JLabel("NumOfTrainImages");
+			trainNum.setFont(new Font( "Arial", Font.PLAIN, 20 ));
+			trainNum.setBounds( 50, 100, 200, 100 );
+			controlFrame.add(trainNum);
+			//cn.setColumns(20);
+			cn.setBounds(  220, 140, 30, 30 );
+			controlFrame.add(cn);
+			controlFrame.add(addButton("OK",null,150, 300, 100, 50,OK_BUTTON_PRESSED ));
+			trainCount.add(controlFrame);
+	        trainCount.setVisible(true);
+	        for(int i=0;i<trainCnt;i++)
+	        {
+	        	
+	        }
+	        
 		}
 		else if(event == EDIT_BUTTON_PRESSED)
 		{
@@ -145,7 +167,21 @@ System.out.println("Start to Label");
 			
 			
 		}
+		else if(event == ADD_BUTTON_PRESSED)
+		{
+		
+			
+			
 		}
+		
+		else if(event == OK_BUTTON_PRESSED)
+		{
+		
+			trainCnt=Integer.valueOf(cn.getText());
+	
+			
+		}
+	}
 
 
 	
@@ -228,15 +264,16 @@ static void Process(String fileName)
 	controlFrame.add(label);
 	List<String> images=loadImages(fileName);
 	if(images.size()<10)
-		System.out.println("Dataset too small for labelling and training");
+		JOptionPane.showMessageDialog(events,"Dataset too small for labelling and training");
 	else {
-	System.out.println("Size=  "+images.size());
+	JOptionPane.showMessageDialog(events,"Size=  "+images.size());
 	new ImageJ();
-	System.out.println("Size=  "+images.get(1));
-	int i=1;
-	ImagePlus fi=new ImagePlus(fileName+"/"+images.get(i));
+ 
+    JTextField imageNum=new JTextField();
+    
+	ImagePlus fi=new ImagePlus(fileName+"/"+images.get(1));
 	fi.show();
-	}
+	
 	
 	
 	//ImageIcon ss=new ImageIcon();
@@ -245,7 +282,7 @@ static void Process(String fileName)
 	controlFrame.add(addButton("create",createImageIcon("addProject.png","add"), 30, 250, 100, 60, CREATE_BUTTON_PRESSED));
 	controlFrame.add(addButton("edit",createImageIcon("openProject.png","add"),210, 250, 100, 60, EDIT_BUTTON_PRESSED));
 	controlFrame.add(addButton("delete",createImageIcon("openProject.png","add"),400, 250, 100, 60, DELETE_BUTTON_PRESSED));
-	
+	}
 	
 	controlFrame.setLocation(0, 0);
 	events.add(controlFrame);

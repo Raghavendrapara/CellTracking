@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -22,7 +23,7 @@ public class Guitest {
 		JFrame trainCount=new JFrame();
 		trainCount.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		trainCount.getContentPane().setBackground( Color.GRAY );
-		trainCount.setSize(600,500);
+		trainCount.setSize(300,400);
 		trainCount.setLocationRelativeTo(null);
 		cnt=new JTextField();
 		//cnt.setBounds(250, 250, 100, 100);
@@ -31,18 +32,19 @@ public class Guitest {
 		controlFrame.setBackground(Color.GRAY );
 		JLabel projectName= new JLabel("Project Name *:");
 		projectName.setFont(new Font( "Arial", Font.PLAIN, 20 ));
-		projectName.setBounds( 50, 100, 200, 30 );
+		projectName.setBounds( 50, 100, 200, 100 );
 		controlFrame.add(projectName);
-		cnt.setColumns(20);
-		cnt.setBounds( 200, 100, 250, 30 );
+		//cnt.setColumns(20);
+		cnt.setBounds( 220, 140, 30, 30 );
 		controlFrame.add(cnt);
-		controlFrame.add(addButton("Cancel",null,270, 350, 200, 60, CANCEL));
+		controlFrame.add(addButton("Cancel",null,150, 300, 100, 50, CANCEL));
 		String a=cnt.getText();
 		System.out.println(a);
 	//	ok=new JButton("OK");
 	//	ok.setBounds(50, 50, 100, 60);
      //   trainCount.add(cnt);			
     //    trainCount.add(ok);
+		JOptionPane.showMessageDialog(trainCount,"Dataset too small for labelling and training");
         trainCount.add(controlFrame);
         trainCount.setVisible(true);
 	}
