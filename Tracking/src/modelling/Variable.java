@@ -22,12 +22,11 @@ public class Variable {
 		if (mValue < mNumScores-1) {
 			return mScore.get(mValue+1) - mScore.get(mValue);
 		} else {
-			// 120406 - Changed from 0.0 to -10.0, to get rid of duplicated tracks.
+		
 			return Math.min(mScore.get(mNumScores-1) - mScore.get(mNumScores-2), 0.0);
 		}
 	}
 
-	// Returns the score associated with decreasing the value by 1, or 0.0 if the value is 0.
 	double GetMinusScore()
 	{
 	
