@@ -26,8 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import activeSegmentation.gui.SimpleCanvas;
-import activeSegmentation.util.GuiUtil;
 import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
@@ -184,6 +182,7 @@ System.out.println("Start to Label");
 	    		frameList.setFixedCellWidth(100);
 	    		frameList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 	    		frameList.setForeground(Color.BLACK);
+	    		
 	    		
 	    		
 	  /*  		JPanel panel = new JPanel();

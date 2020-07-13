@@ -34,6 +34,8 @@ public class Guitest {
 		frameList.setFixedCellWidth(100);
 		frameList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		frameList.setForeground(Color.BLACK);
+		
+		
 	frame.add(frameList);
 	frame.setVisible(true);
 	}
