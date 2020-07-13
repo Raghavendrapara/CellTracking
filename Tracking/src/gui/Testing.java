@@ -1,6 +1,8 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,19 +14,27 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
+import activeSegmentation.gui.SimpleCanvas;
+import activeSegmentation.util.GuiUtil;
 import ij.ImageJ;
 import ij.ImagePlus;
+import ij.ImageStack;
 //import activeSegmentation.gui.Gui;
 import ij.WindowManager;
+import ij.plugin.frame.RoiManager;
+import ij.process.ImageProcessor;
 
 
 public class Testing {
@@ -147,11 +157,63 @@ System.out.println("Start to Label");
 			controlFrame.add(addButton("OK",null,150, 300, 100, 50,OK_BUTTON_PRESSED ));
 			trainCount.add(controlFrame);
 	        trainCount.setVisible(true);
-	        for(int i=0;i<trainCnt;i++)
+	        for(int i=1;i<=trainCnt;i++)
 	        {
-	        	
-	        }
-	        
+	        	ImagePlus frame1=new ImagePlus(filePath+"/"+images.get(i-1));
+	        	ImagePlus frame2=new ImagePlus(filePath+"/"+images.get(i));
+	        	ImagePlus frame3=new ImagePlus(filePath+"/"+images.get(i+1));
+	        	ImageStack gtLabel=new ImageStack();
+	        	ImageProcessor iP1=frame1.getProcessor();
+	        	ImageProcessor iP2=frame2.getProcessor();
+	        	ImageProcessor iP3=frame3.getProcessor();
+	        	gtLabel.addSlice(iP1);
+	        	gtLabel.addSlice(iP2);
+	        	gtLabel.addSlice(iP3);
+	            ImagePlus xy=new ImagePlus();
+	            xy.setStack("Sequence:"+i, gtLabel);
+	          //  xy.show();
+	            JFrame frame = new JFrame("Marking");	     
+	    		
+	    		frame.setResizable(true);
+	     		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+	    		DefaultListModel<String> l=new DefaultListModel<>();
+	    		l.addElement("f");l.addElement("dd");
+	    		JList<String> frameList=new JList<String>(l);
+	    		frameList.setVisibleRowCount(5);
+	    		frameList.setFixedCellHeight(20);
+	    		frameList.setFixedCellWidth(100);
+	    		frameList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+	    		frameList.setForeground(Color.BLACK);
+	    		
+	    		
+	  /*  		JPanel panel = new JPanel();
+	    		panel.setLayout(null);
+	    		panel.setFont(panelFONT);
+	    		panel.setBackground(Color.GRAY);
+	    		
+	    		imagePanel = new JPanel();	
+	    		roiPanel= new JPanel();
+	    		classPanel= new JPanel();
+	    		
+	    		/*
+	    		 * image panel
+	    		 */
+	    	/*	imagePanel.setLayout(new BorderLayout());
+	    		
+	    		ic=new SimpleCanvas(featureManager.getCurrentImage());
+	    		ic.setMinimumSize(new Dimension(IMAGE_CANVAS_DIMENSION, IMAGE_CANVAS_DIMENSION));
+	    		loadImage(displayImage);
+	    		setOverlay();
+	    		imagePanel.setBackground(Color.GRAY);		
+	    		imagePanel.add(ic,BorderLayout.CENTER);
+	    		imagePanel.setBounds( 10, 10, IMAGE_CANVAS_DIMENSION, IMAGE_CANVAS_DIMENSION );		
+	    		panel.add(imagePanel);
+	     */   }
+	       RoiManager roiman=new RoiManager();
+	       //roiman.actionPerformed(EDIT_BUTTON_PRESSED);
+	       roiman.setVisible(true);
+	       
+	       
 		}
 		else if(event == EDIT_BUTTON_PRESSED)
 		{
@@ -271,8 +333,8 @@ static void Process(String fileName)
  
     JTextField imageNum=new JTextField();
     
-	ImagePlus fi=new ImagePlus(fileName+"/"+images.get(1));
-	fi.show();
+	//ImagePlus fi=new ImagePlus(fileName+"/"+images.get(1));
+	//fi.show();
 	
 	
 	

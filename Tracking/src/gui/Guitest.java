@@ -5,13 +5,16 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 public class Guitest {
 	static JTextField cnt;
@@ -19,8 +22,23 @@ public class Guitest {
 	public static final Font FONT = new Font( "Arial", Font.BOLD, 13 );
 	final static ActionEvent CANCEL = new ActionEvent( new Guitest(), 7, "cancel" );
 	public static void main(String[] args) {
+	    JFrame frame = new JFrame("Marking");	     
+		frame.setSize(1000, 1000);
+		frame.setResizable(true);
+ 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		DefaultListModel<String> l=new DefaultListModel<>();
+		l.addElement("f");l.addElement("dd");
+		JList<String> frameList=new JList<String>(l);
+		frameList.setVisibleRowCount(5);
+		frameList.setFixedCellHeight(20);
+		frameList.setFixedCellWidth(100);
+		frameList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		frameList.setForeground(Color.BLACK);
+	frame.add(frameList);
+	frame.setVisible(true);
+	}
 		// TODO Auto-generated method stub
-		JFrame trainCount=new JFrame();
+	/*	JFrame trainCount=new JFrame();
 		trainCount.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		trainCount.getContentPane().setBackground( Color.GRAY );
 		trainCount.setSize(300,400);
@@ -56,8 +74,8 @@ public class Guitest {
 			System.out.println(cnt.getText());
 		}
 		
-	}
-	private static JButton addButton( final String label, final ImageIcon icon, final int x,
+	}*/
+/*	private static JButton addButton( final String label, final ImageIcon icon, final int x,
 			final int y, final int width, final int height,final ActionEvent action)
 	{
 		final JButton button =  new JButton(label, icon);
@@ -79,5 +97,5 @@ public class Guitest {
 
 		return button;
 	}
-	
+	*/
 }
