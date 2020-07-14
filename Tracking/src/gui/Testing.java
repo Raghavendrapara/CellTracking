@@ -1,7 +1,11 @@
 package gui;
 
+
+
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -25,25 +29,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-
 import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
-//import activeSegmentation.gui.Gui;
-import ij.WindowManager;
+import ij.gui.ImageWindow;
 import ij.plugin.frame.RoiManager;
+import ij.process.ImageConverter;
 import ij.process.ImageProcessor;
-
+import static gui.ASCommon.*;
 
 public class Testing {
 	
 	static String filePath;
-	
+	private static ImageOverlay resultOverlay;
 	static JTextField cn;
 	static int trainCnt;
 	final static ActionEvent SELECT_BUTTON_PRESSED = new ActionEvent(new Testing(), 1, "select" );
 	final static ActionEvent OK_BUTTON_PRESSED = new ActionEvent(new Testing(), 2, "select" );
-	
+	static int overlayOpacity = 33;
+	static SimpleCanvas ic;
+    static Composite overlayAlpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, overlayOpacity / 100f);
 	/** This {@link ActionEvent} is fired when the 'next' button is pressed. */
 	final static ActionEvent OPEN_BUTTON_PRESSED = new ActionEvent(new  Testing() , 3, "open" );
 	final static ActionEvent ADD_BUTTON_PRESSED = new ActionEvent(new  Testing() , 4, "add" );
@@ -169,9 +174,9 @@ System.out.println("Start to Label");
 	        	gtLabel.addSlice(iP3);
 	            ImagePlus xy=new ImagePlus();
 	            xy.setStack("Sequence:"+i, gtLabel);
-	          //  xy.show();
+	          // xy.show();
 	            JFrame frame = new JFrame("Marking");	     
-	    		
+	    		frame.setSize(1200,1200);
 	    		frame.setResizable(true);
 	     		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	    		DefaultListModel<String> l=new DefaultListModel<>();
@@ -185,29 +190,30 @@ System.out.println("Start to Label");
 	    		
 	    		
 	    		
-	  /*  		JPanel panel = new JPanel();
+	    		JPanel panel = new JPanel();
 	    		panel.setLayout(null);
-	    		panel.setFont(panelFONT);
+	    		panel.setFont(new Font("Arial",Font.BOLD,13));
 	    		panel.setBackground(Color.GRAY);
 	    		
-	    		imagePanel = new JPanel();	
-	    		roiPanel= new JPanel();
-	    		classPanel= new JPanel();
+	    		JPanel imagePanel=new JPanel();
+	    		
 	    		
 	    		/*
 	    		 * image panel
 	    		 */
-	    	/*	imagePanel.setLayout(new BorderLayout());
+	    		imagePanel.setLayout(new BorderLayout());
 	    		
-	    		ic=new SimpleCanvas(featureManager.getCurrentImage());
+	    	     ic=new SimpleCanvas(xy);
 	    		ic.setMinimumSize(new Dimension(IMAGE_CANVAS_DIMENSION, IMAGE_CANVAS_DIMENSION));
-	    		loadImage(displayImage);
+	    		
 	    		setOverlay();
 	    		imagePanel.setBackground(Color.GRAY);		
 	    		imagePanel.add(ic,BorderLayout.CENTER);
 	    		imagePanel.setBounds( 10, 10, IMAGE_CANVAS_DIMENSION, IMAGE_CANVAS_DIMENSION );		
 	    		panel.add(imagePanel);
-	     */   }
+	       frame.add(panel);
+	       frame.setVisible(true);
+	        }
 	       RoiManager roiman=new RoiManager();
 	       //roiman.actionPerformed(EDIT_BUTTON_PRESSED);
 	       roiman.setVisible(true);
@@ -245,8 +251,18 @@ System.out.println("Start to Label");
 	}
 
 
+
 	
-/*
+	private static void setOverlay(){
+		resultOverlay = new ImageOverlay();
+		resultOverlay.setComposite( overlayAlpha );
+		((OverlayedImageCanvas)ic).addOverlay(resultOverlay);
+	}
+/*	private void setOverlay(){
+		resultOverlay = new ImageOverlay();
+		resultOverlay.setComposite( overlayAlpha );
+		((OverlayedImageCanvas)ic).addOverlay(resultOverlay);
+	}
   private static JFrame createProject(){
  
 	
