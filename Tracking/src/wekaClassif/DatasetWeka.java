@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ij.ImageJ;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instances;
@@ -20,15 +21,19 @@ public class DatasetWeka {
 	//Attributes WEka
 	public static void main(String args[]) throws IOException 
 	{
-	GroundTruthExtractor gb=new  GroundTruthExtractor();
+		
+	GroundTruthExtractor gb=new  GroundTruthExtractor(5);
 	//int j=getNumFrame();
-	gb.getValues(0);
+	new ImageJ();
+	
 	ArrayList<Attribute> attributes = new ArrayList<Attribute>();
-	ArrayList<Features> feat=gb.FeatureSet;
+	gb.getValues();
+	ArrayList<Features> feat=gb.featureSet;
 	for(String ky:feat.get(0).featureNames.values())
         attributes.add(new Attribute(ky));
-List<String> l=new ArrayList<>();
-l.add("Mig");l.add("NotMig");
+    
+	List<String> l=new ArrayList<>();
+    l.add("0");l.add("1");
 	attributes.add(new Attribute("class",l));
 	//System.out.println(attributes.toString());
 	WekaTrain=new Instances("Tracking",attributes,1);
@@ -48,6 +53,7 @@ WekaTrain.add(new DenseInstance(1.0,convert(str)));
 	
 
 
+	
 	}
 System.out.println(WekaTrain.toString());
 		

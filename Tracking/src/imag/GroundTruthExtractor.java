@@ -34,23 +34,33 @@ import ij.process.ImageProcessor;
 public class GroundTruthExtractor {
 
 	//static Roi roi[][];
-	public static ArrayList<Features> FeatureSet=new ArrayList<>();
+	public static ArrayList<Features> featureSet=new ArrayList<>();
+	static int trainCnt;
 	
-	    public void getValues(int i) throws IOException {
+	public GroundTruthExtractor() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public GroundTruthExtractor(int trainCount)
+	{
+		trainCnt=trainCount;
+	}
+	    	public void getValues() throws IOException {
 		// TODO Auto-generated method stub
 	    //Change into formal form
 		String inputPath="/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"; 
-		new ImageJ();
+		
 		GroundTruthExtractor extracter= new GroundTruthExtractor();
 		List<String> images=extracter.loadImages(inputPath);
 		//System.out.println(images.size());
 	     RoiManager roiManager= new RoiManager();
 		//roi=new Roi[images.size()][10];
-		
-		ImagePlus currentImage= IJ.openImage(inputPath+images.get(i));	
-		 extracter.runextracter(currentImage, roiManager, 0,255);
-		 
+		for(int frameNum=0;frameNum<trainCnt;frameNum++) {
+		ImagePlus currentImage= IJ.openImage(inputPath+images.get(frameNum));	
+		 extracter.runextracter(currentImage, roiManager, 0,255,frameNum);
+		}
 		// break;
+		 
 		}
 	//    for(int i=0;i<10 && roi[0][i]!=null;i++)
 		//System.out.println(roi[0][i].getContourCentroid()[0]+"                     "+roi[114][i].getContourCentroid()[1]);
@@ -100,7 +110,7 @@ public class GroundTruthExtractor {
 		return imageList;
 	}
 	
-	public void runextracter(ImagePlus currentImage, RoiManager roiManager, int minThreshold, int maxThreshold) throws IOException{
+	public void runextracter(ImagePlus currentImage, RoiManager roiManager, int minThreshold, int maxThreshold,int frameNum) throws IOException{
         ResultsTable xx=new ResultsTable();
 		for(int threshold=minThreshold; threshold<=maxThreshold; threshold++) {
 			ImagePlus copyImage= currentImage.duplicate();
@@ -129,7 +139,7 @@ public class GroundTruthExtractor {
   //   System.out.println(Arrays.toString(arr));
 		int n=arr.length;
 	//	System.out.println(n+"  "+xx.size());
-	    double val[]=new double[n+1];
+	    double val[]=new double[n];
 		
 		for(int k=0;k<xx.size();k++)
 		{
@@ -140,13 +150,16 @@ public class GroundTruthExtractor {
 			
 			//System.out.println(ss);
 			StringTokenizer cc=new StringTokenizer(ss);
+		
 			for(int k1=0;k1<n;k1++)
-				val[k1]=Double.valueOf(cc.nextToken());
+				if(k1==0)
+					{val[k1]=frameNum;String discardToken=cc.nextToken();}
+				else val[k1]=Double.valueOf(cc.nextToken());
 				
-	//		System.out.println(Arrays.toString(val));
+	//		System.out.println(val.length);
 			Features xy=new Features(arr,val);
 		//	System.out.println(xy.getFeatureName().get(1));
-			FeatureSet.add(xy);
+			featureSet.add(xy);
 		}
 		
 		//xx.show("Table");
