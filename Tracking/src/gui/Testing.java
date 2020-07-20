@@ -5,6 +5,7 @@ package gui;
 import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,21 +19,30 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+
+import ij.IJ;
 import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
 import ij.gui.ImageWindow;
+import ij.gui.Roi;
 import ij.plugin.frame.RoiManager;
 import ij.process.ImageConverter;
 import ij.process.ImageProcessor;
@@ -44,6 +54,20 @@ public class Testing {
 	private static ImageOverlay resultOverlay;
 	static JTextField cn;
 	static int trainCnt;
+	static int imageNum;
+	static ImageStack train;
+	private static ActionEvent NEXT_BUTTON_PRESSED = new ActionEvent( new Testing(), 0, "Next" );
+	/** This {@link ActionEvent} is fired when the 'previous' button is pressed. */
+	private static ActionEvent PREVIOUS_BUTTON_PRESSED = new ActionEvent( new Testing(), 1, "Previous" );
+	private static ActionEvent ADDCLASS_BUTTON_PRESSED = new ActionEvent( new Testing(), 2, "AddClass" );
+	private static ActionEvent SAVECLASS_BUTTON_PRESSED= new ActionEvent( new Testing(), 3, "SaveLabel" );
+	private static ActionEvent COMPUTE_BUTTON_PRESSED  = new ActionEvent( new Testing(), 5, "TRAIN" );
+	private static ActionEvent SAVE_BUTTON_PRESSED  = new ActionEvent( new Testing(), 6, "SAVEDATA" );
+	private static ActionEvent TOGGLE_BUTTON_PRESSED = new ActionEvent( new Testing(), 7, "TOGGLE" );
+	private static ActionEvent DOWNLOAD_BUTTON_PRESSED = new ActionEvent( new Testing(), 8, "DOWNLOAD" );
+	private static ActionEvent MASKS_BUTTON_PRESSED = new ActionEvent( new Testing(), 8, "MASKS" );
+ 
+
 	final static ActionEvent SELECT_BUTTON_PRESSED = new ActionEvent(new Testing(), 1, "select" );
 	final static ActionEvent OK_BUTTON_PRESSED = new ActionEvent(new Testing(), 2, "select" );
 	static int overlayOpacity = 33;
@@ -160,8 +184,7 @@ System.out.println("Start to Label");
 			controlFrame.add(addButton("OK",null,150, 300, 100, 50,OK_BUTTON_PRESSED ));
 			trainCount.add(controlFrame);
 	        trainCount.setVisible(true);
-	        for(int i=1;i<=trainCnt;i++)
-	        {
+	        int i=3;
 	        	ImagePlus frame1=new ImagePlus(filePath+"/"+images.get(i-1));
 	        	ImagePlus frame2=new ImagePlus(filePath+"/"+images.get(i));
 	        	ImagePlus frame3=new ImagePlus(filePath+"/"+images.get(i+1));
@@ -172,6 +195,7 @@ System.out.println("Start to Label");
 	        	gtLabel.addSlice(iP1);
 	        	gtLabel.addSlice(iP2);
 	        	gtLabel.addSlice(iP3);
+	        	train=gtLabel;
 	            ImagePlus xy=new ImagePlus();
 	            xy.setStack("Sequence:"+i, gtLabel);
 	          // xy.show();
@@ -211,34 +235,65 @@ System.out.println("Start to Label");
 	    		imagePanel.add(ic,BorderLayout.CENTER);
 	    		imagePanel.setBounds( 10, 10, IMAGE_CANVAS_DIMENSION, IMAGE_CANVAS_DIMENSION );		
 	    		panel.add(imagePanel);
-	       frame.add(panel);
-	       frame.setVisible(true);
-	        }
+	            frame.add(panel);
+	            frame.setVisible(true);
+	        
 	       RoiManager roiman=new RoiManager();
 	       //roiman.actionPerformed(EDIT_BUTTON_PRESSED);
 	       roiman.setVisible(true);
-	       
-	       
-		}
-		else if(event == EDIT_BUTTON_PRESSED)
-		{
-			
-			
-			
-		}
-		else if(event == DELETE_BUTTON_PRESSED)
-		{
-			
-			
-			
-			
-			
-		}
-		else if(event == ADD_BUTTON_PRESSED)
-		{
+	 /*      JPanel classPanel=new JPanel();
+	   	classPanel.setBounds(605,20,350,100);
+		classPanel.setPreferredSize(new Dimension(350, 100));
+		classPanel.setBorder(BorderFactory.createTitledBorder("Browse"));
 		
-			
-			
+		JScrollPane classScrolPanel = new JScrollPane(classPanel);
+		classScrolPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		classScrolPanel.setBounds(605,20,350,80);
+		addClassPanel();
+		panel.add(classScrolPanel);
+		*/
+		
+		/*
+		 * features
+		 */
+		JPanel features= new JPanel();
+		features.setBounds(605,120,350,100);
+		features.setBorder(BorderFactory.createTitledBorder("Training"));
+		
+		addButton(new JButton(), "PREVIOUS",null , 610, 130, 120, 20,features,PREVIOUS_BUTTON_PRESSED,null );
+		
+		JTextField imageNum= new JTextField();
+		imageNum.setColumns(5);
+		imageNum.setBounds( 630, 130, 10, 20 );
+		JLabel dasedLine= new JLabel("/");
+		dasedLine.setFont(new Font( "Arial", Font.PLAIN, 15 ));
+		dasedLine.setForeground(Color.BLACK);
+		dasedLine.setBounds(  670, 130, 10, 20 );
+		JLabel total= new JLabel("Total");
+		total.setFont(new Font( "Arial", Font.PLAIN, 15 ));
+		total.setForeground(Color.BLACK);
+		total.setBounds( 500, 600, 80, 30);		
+		imageNum.setText("1");
+		total.setText("15");
+		features.add(imageNum);
+		features.add(dasedLine);
+		features.add(total);
+		
+		/*
+		 * compute panel
+		 */
+		
+		JPanel computePanel = new JPanel();
+		addButton(new JButton(), "Next",null , 800, 130, 80, 20,features,NEXT_BUTTON_PRESSED,null );
+		addButton(new JButton(), "Train",null, 550,550,350,100,computePanel, COMPUTE_BUTTON_PRESSED,null);
+		addButton(new JButton(), "Save",null, 550,550,350,100,computePanel, SAVE_BUTTON_PRESSED,null);
+		addButton(new JButton(), "Overlay",null, 550,550,350,100,computePanel, TOGGLE_BUTTON_PRESSED,null);
+		addButton(new JButton(), "Masks",null, 550,550,350,100,computePanel, MASKS_BUTTON_PRESSED,null);
+		
+		features.add(computePanel);
+		frame.add(features);
+		
+	       
 		}
 		
 		else if(event == OK_BUTTON_PRESSED)
@@ -248,10 +303,85 @@ System.out.println("Start to Label");
 	
 			
 		}
+
+			if(event == PREVIOUS_BUTTON_PRESSED){			
+				ImageProcessor img=train.getProcessor(1);
+				set
+				
+								
+				if (showColorOverlay){
+					if(featureManager.getProjectType()==ProjectType.CLASSIF) 
+						classifiedImage = null;
+					else 
+						classifiedImage=featureManager.getClassifiedImage();		
+					updateResultOverlay(classifiedImage);
+				}
+
+				// force limit size of image window
+				if(ic.getWidth()>IMAGE_CANVAS_DIMENSION) {
+					int x_centre = ic.getWidth()/2+ic.getX();
+					int y_centre = ic.getHeight()/2+ic.getY();
+					ic.zoomIn(x_centre,y_centre);
+				}			
+				updateGui();
+			} // end if
+			
+			if(event==NEXT_BUTTON_PRESSED  ){			
+				ImagePlus image=featureManager.getNextImage();
+				imageNum.setText(Integer.toString(featureManager.getCurrentSlice()));
+				loadImage(image);
+				if (showColorOverlay){
+					if(featureManager.getProjectType()==ProjectType.CLASSIF)
+						classifiedImage = null;
+					else
+						classifiedImage=featureManager.getClassifiedImage();
+					updateResultOverlay();
+				}
+
+				// force limit size of image window
+				if(ic.getWidth()>IMAGE_CANVAS_DIMENSION) {
+					int x_centre = ic.getWidth()/2+ic.getX();
+					int y_centre = ic.getHeight()/2+ic.getY();
+					ic.zoomIn(x_centre,y_centre);
+				}
+				//imagePanel.add(ic);
+			} // end if
+			
+
+			
+
+
 	}
 
 
+	private static JButton addButton(final JButton button ,final String label, final Icon icon, final int x,
+			final int y, final int width, final int height,
+			JComponent panel, final ActionEvent action,final Color color )
+	{
+		panel.add(button);
+		button.setText( label );
+		button.setIcon( icon );
+		button.setFont( panelFONT );
+		button.setBorderPainted(false); 
+		button.setFocusPainted(false); 
+		button.setBackground(new Color(192, 192, 192));
+		button.setForeground(Color.WHITE);
+		if(color!=null){
+			button.setBackground(color);
+		}
+		button.setBounds( x, y, width, height );
+		button.addActionListener( new ActionListener()
+		{
+			@Override
+			public void actionPerformed( final ActionEvent e )
+			{
+				//System.out.println(e.toString());
+				doAction(action);
+			}
+		});
 
+		return button;
+	}
 	
 	private static void setOverlay(){
 		resultOverlay = new ImageOverlay();

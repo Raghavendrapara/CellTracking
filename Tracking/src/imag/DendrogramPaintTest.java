@@ -1,6 +1,7 @@
 package imag;
 
 import java.util.ArrayList;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -75,7 +76,11 @@ class Node<T>
 
 class DendrogramPaintPanel extends JPanel
 {
-    private static <T> Node<T> create(T contents)
+    /**
+	 * 
+	 */
+
+	private static <T> Node<T> create(T contents)
     {
         return new Node<T>(contents);
     }
@@ -162,7 +167,7 @@ class DendrogramPaintPanel extends JPanel
         heightPerLeaf = (getHeight() - margin - margin) / leaves;
         widthPerLevel = (getWidth() - margin - margin)/ levels;
         currentY = 0;
-
+        g.setColor(Color.MAGENTA);
         g.translate(margin, margin);
         draw(g, root, 0);
     }

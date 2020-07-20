@@ -1,14 +1,25 @@
 package imag;
-import org.apache.commons.math3.analysis.function.Gaussian;
+
+
+import java.awt.Image;
 import java.io.File;
 import java.util.*;
 import ij.IJ;
 import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
+import ij.gui.ImageCanvas;
+import ij.gui.ImageWindow;
 import ij.gui.Roi;
 import ij.gui.Wand;
 import java.util.regex.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import ij.gui.TextRoi;
 import ij.io.RoiDecoder;
 import ij.io.RoiEncoder;
@@ -32,11 +43,29 @@ public class ImageLoader {
         //for (int i = 0; i < n ; i++) { 
           //  System.out.println(arr[i]); }
 		System.out.println(x);
+	    JFrame frame=new JFrame();
+		ImagePlus next=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
+		ImageProcessor nn=next.getProcessor();
+		ImageWindow iw=new ImageWindow(next);
+		iw.setSize(400, 400);
 		
+	  
+        nn.scale(0.5, 0.5);
+        next=iw.getImagePlus();
+        next.resize(400,400,"options");
+	   // ImageCanvas x1=new ImageCanvas(next);
+	    Image xx=next.getImage();
+       ImageIcon jj=new ImageIcon(xx);
+       JLabel c=new JLabel(jj);
+       c.setBounds(0, 0, 400, 400);
+       frame.add(c);
+		frame.setBounds(0, 0, 400,400);
+	//	frame.add(new JLabel(jj));
+		frame.setVisible(true);
 		new ImageJ();
 		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
 		//IJ.run("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
-		ImagePlus fi=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
+/*		ImagePlus fi=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
 	    ImageProcessor ip=fi.getProcessor();
 		int width=ip.getWidth();
 		//int height=ip.getHeight();
@@ -50,7 +79,7 @@ public class ImageLoader {
 		}
 		
 		//System.out.println(IJ.doWand(275, 164,1,"4-connected"));
-		
+	*/	
 			}
 	
 
