@@ -2,8 +2,14 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -35,8 +41,9 @@ public class Guitest {
 		frameList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		frameList.setForeground(Color.BLACK);
 		
-		
-	frame.add(frameList);
+	
+frame.addMouseMotionListener(mouseWheel);
+		frame.add(frameList);
 	frame.setVisible(true);
 	}
 		// TODO Auto-generated method stub
@@ -100,4 +107,15 @@ public class Guitest {
 		return button;
 	}
 	*/
+	private  static MouseMotionListener mouseWheel = new MouseAdapter() {
+		public void mouseRolled(MouseEvent mouseEvent) {
+		Point n=mouseEvent.getPoint();
+		if(mouseEvent.getX()>0)
+   		System.out.println(mouseEvent.toString());
+		else
+			System.out.println(mouseEvent.getY());
+			
+
+		}
+	};
 }

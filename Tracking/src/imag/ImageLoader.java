@@ -1,6 +1,7 @@
 package imag;
 
 
+import java.awt.BorderLayout;
 import java.awt.Image;
 import java.io.File;
 import java.util.*;
@@ -31,7 +32,7 @@ public class ImageLoader {
 	private List<String> images=new ArrayList<>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-       ImageLoader ob=new ImageLoader();
+    /*   ImageLoader ob=new ImageLoader();
 		int x=ob.loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG");
 		//File a=new File("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG");
 		//String arr[]=a.list(); 
@@ -57,11 +58,23 @@ public class ImageLoader {
 	    Image xx=next.getImage();
        ImageIcon jj=new ImageIcon(xx);
        JLabel c=new JLabel(jj);
+       JPanel cc=new JPanel();
+       cc.setLayout(new BorderLayout());
+       /*
        c.setBounds(0, 0, 400, 400);
-       frame.add(c);
-		frame.setBounds(0, 0, 400,400);
+       cc.add(c,BorderLayout.CENTER);
+       cc.setSize(400, 400);
+       cc.setBounds(0, 0, 200, 200);
+       frame.add(cc);
+       frame.setSize(400, 400);
+      */ ImagePlus next=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
+		JFrame frame=new JFrame();
+	    MyCanvas mc=new MyCanvas(next,400);
+		frame.add(mc);
+		frame.setSize(1000,1000);
 	//	frame.add(new JLabel(jj));
 		frame.setVisible(true);
+	
 		new ImageJ();
 		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
 		//IJ.run("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
