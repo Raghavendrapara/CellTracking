@@ -1,38 +1,45 @@
 package modelling;
 
-import java.util.ArrayList;
-
+import java.util.*;
 public class Trellis
 {
-	ArrayList<Arc> Arcs; double aScore;
+	ArrayList<Arc> aArcs;
+	double aScore;
 // Default constructor used to make it possible to inherit from the class.
-ArrayList<ArrayList<Node>> mNodes;//Layer number wise storage of Nodes for each tiff image 
-int mNumT;//No. Of tiff images/layers
-Trellis(int aNumT)
-{
+   ArrayList<ArrayList<Node>> mNodes;//Layer number wise storage of Nodes for each tiff image 
+
+   int mNumT;//No. Of tiff images/layers
+
+   Trellis(int aNumT)
+  {
 	mNumT=aNumT;
 	for (int t=0; t<mNumT; t++) 
 	{
 		mNodes.add(new ArrayList<Node>());
 	}
-}
+  }
 
 //Implement a destructor equivalent for trellis
 
-void addNode(int aT, Node aNode) //aT denotes position of the image in tiff stack 
-{
-	ArrayList<Node> arr=mNodes.get(aT);
-	arr.add(aNode);
-	mNodes.set(aT,arr);
-}
+   void addNode(int aT, Node aNode) //aT denotes position of the image in tiff stack 
+   {
+	
+	   ArrayList<Node> arr=mNodes.get(aT);
+	   arr.add(aNode);
+	   mNodes.set(aT,arr);
+	   
+   }
 
-Node GetNode(int aT, int aN) 
-{
+
+   Node getNode(int aT, int aN) 
+   {
 	return mNodes.get(aT).get(aN);//Layer Number aT and Node number aN
-}
+   }
 
-void HighestScoringPath() //Implementation of the pseudo code for Viterbi Algorithm
-{
+
+   void highestScoringPath() //Implementation of the pseudo code for Viterbi Algorithm
+
+   {
 
 	ArrayList<ArrayList<Arc>> bestArcs=new ArrayList<>();		//Arc simply denotes the edges carrying the same naming as used in the paperper
 	ArrayList<ArrayList<Double>> bestScores=new ArrayList<>();
@@ -41,25 +48,25 @@ void HighestScoringPath() //Implementation of the pseudo code for Viterbi Algori
 	for (int t=0; t<mNumT; t++) 
 	{
 		bestArcs.add(new ArrayList<Arc>(mNodes.size()));
-		ArrayList<Double> x1=new ArrayList<Double>(mNodes.get(t).size());
-		ArrayList<Integer> x2=new ArrayList<Integer>(mNodes.get(t).size());
+		ArrayList<Double> tempScore=new ArrayList<Double>(mNodes.get(t).size());
+		ArrayList<Integer> tempPreviousIndex=new ArrayList<Integer>(mNodes.get(t).size());
 		
-		for(int i=0;i<x1.size();i++)
+		for(int i=0;i<tempScore.size();i++)
 		    {
-			x1.set(i,-(Double.MAX_VALUE));
-			x2.set(i, -1);
+			tempScore.set(i,-(Double.MAX_VALUE));
+			tempPreviousIndex.set(i, -1);
 	            }
 	        
-		bestScores.add(x1);
-		prevIndex.add(x2);  // -1 indicates that the node can not be reached.
+		bestScores.add(tempScore);
+		prevIndex.add(tempPreviousIndex);  // -1 indicates that the node can not be reached.
 	}
 
 	// Set the initial scores to 0.
-	ArrayList<Double> d=bestScores.get(0);
+	ArrayList<Double> tempScoreAt0=bestScores.get(0);
 	for (int n=0; n<mNodes.get(0).size(); n++) {
-        d.add(n,0.0);
+        tempScoreAt0.add(n,0.0);
     }
-    bestScores.set(0,d);
+    bestScores.set(0,tempScoreAt0);
 	// Go through the layers one by one to find the highest scoring path from the beginning of the Trellis to the end.
     for (int t=1; t<mNumT; t++) 
     {
@@ -70,23 +77,23 @@ void HighestScoringPath() //Implementation of the pseudo code for Viterbi Algori
 		for (int i=0; i<node.getNumOfForArcs(); i++) 
 		{
 			              Arc bArc     = node.getBackwardArc(i);
-                          int pIndex   = bArc.GetStart().getIndex();
+                          int pIndex   = bArc.getStart().getIndex();
                           double score = bestScores.get(t-1).get(pIndex) + bArc.score();
                           
                           if (i==0 || score > bestScores.get(t).get(n))
                           {
                 	
-                          ArrayList<Arc> y1=bestArcs.get(t);
-                          y1.set(n,bArc);
-                          bestArcs.set(t,y1);
+                          ArrayList<Arc> tempArc=bestArcs.get(t);
+                          tempArc.set(n,bArc);
+                          bestArcs.set(t,tempArc);
                     
-                          ArrayList<Double> y2=bestScores.get(t);
-                          y2.set(n,score);
-                          bestScores.set(t,y2);
+                          ArrayList<Double> tempScore=bestScores.get(t);
+                          tempScore.set(n,score);
+                          bestScores.set(t,tempScore);
 
-                          ArrayList<Integer> y3=prevIndex.get(t);
-                          y3.set(n,pIndex);
-                          prevIndex.set(t,y3);
+                          ArrayList<Integer> tempPreviousPos=prevIndex.get(t);
+                          tempPreviousPos.set(n,pIndex);
+                          prevIndex.set(t,tempPreviousPos);
          
 		          }
                 }
@@ -105,7 +112,7 @@ void HighestScoringPath() //Implementation of the pseudo code for Viterbi Algori
 	int maxIndex = endIndex;
         for (int t=mNumT-1; t>0; t--)
         {
-	    Arcs.add(bestArcs.get(t).get(maxIndex));
+	    aArcs.add(bestArcs.get(t).get(maxIndex));
         maxIndex = prevIndex.get(t).get(maxIndex);
         }
 
