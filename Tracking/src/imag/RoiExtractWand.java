@@ -5,26 +5,20 @@ import java.util.*;
 import ij.IJ;
 import ij.ImageJ;
 import ij.ImagePlus;
-import ij.ImageStack;
-import ij.gui.Roi;
 import ij.gui.Wand;
 import java.util.regex.*;
-import ij.gui.TextRoi;
-import ij.io.RoiDecoder;
-import ij.io.RoiEncoder;
-import ij.plugin.filter.RankFilters;
-import ij.plugin.frame.RoiManager;
-import ij.process.FloatProcessor;
 import ij.process.ImageProcessor;
-public class WandMath {
+
+
+
+
+//A Sample use Case for Wand Tool
+
+public class RoiExtractWand {
 	private static List<String> images=new ArrayList<>();
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-       File a=new File("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG");
-	   String arr[]=a.list(); 
-		  
-        //find no. of entries in the directory 
-         int n=loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG"); 
+		//find no. of entries in the directory 
+         int stackSize=loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG"); 
          
         //displaying the entries 
          
@@ -32,42 +26,42 @@ public class WandMath {
 		//System.out.println(x);
 		
 		new ImageJ();
-		for (int k = 0; k < n ; k++) {
-		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"+images.get(k));
+		for (int frame = 0; frame < stackSize ; frame++) {
+		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"+images.get(frame));
 		//IJ.run("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
-		ImagePlus fi=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"+images.get(k));
-	    ImageProcessor ip=fi.getProcessor();
+		ImagePlus temp=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"+images.get(frame));
+	    ImageProcessor ip=temp.getProcessor();
 		//int width=ip.getWidth();
 		//int height=ip.getHeight();
 		//fi.show();
 		//System.out.println(width);
-		Wand wa=new Wand(ip);
-		HashSet<ArrayList<Integer>> x=new HashSet<>();
-		HashSet<ArrayList<Integer>> y=new HashSet<>();
-		HashSet<String> s=new HashSet<>();
-		HashSet<String> sy=new HashSet<>();
+		Wand wand=new Wand(ip);
+		HashSet<ArrayList<Integer>> xPoints=new HashSet<>();
+		HashSet<ArrayList<Integer>> yPoints=new HashSet<>();
+		HashSet<String> hashXYpoints=new HashSet<>();
+		
 		//HashSet<Integer>
 		//To add technique for filling using subtract or fill Polygon
-		for(int i1=0;i1<696;i1++)
-			for(int j=0;j<520;j++) {
+		for(int i1=0;i1<696;i1++) //Iterate over X axis
+			for(int j=0;j<520;j++) { //Iterate over Y-Axis
 		        if(ip.getValue(i1, j)>0) {
-				wa.autoOutline(i1,j);
+				wand.autoOutline(i1,j);
 		        int f=0;
-		      for(int i=0;i<wa.xpoints.length && (wa.ypoints[i]>0 && wa.xpoints[i]>0);i++)
+		      for(int i=0;i<wand.xpoints.length && (wand.ypoints[i]>0 && wand.xpoints[i]>0);i++)
 		      { 
-		      String ss=wa.ypoints[i]+""+wa.xpoints[i];
-		      if(s.contains(ss))
+		      String tupleXY=wand.ypoints[i]+""+wand.xpoints[i];
+		      if(hashXYpoints.contains(tupleXY))
 		      { f=1;break;}
-		    	  else {s.add(ss);}
+		    	  else {hashXYpoints.add(tupleXY);}
 		      if(f!=1)
-				     if((wa.xpoints)!=null) {
-				      x.add(convert(wa.xpoints));
-				      y.add(convert(wa.ypoints));}}
+				     if((wand.xpoints)!=null) {
+				      xPoints.add(convert(wand.xpoints));
+				      yPoints.add(convert(wand.ypoints));}}
 		        }
 		    
 		      }
-		System.out.println(x.size());
-		System.out.println(y.size());
+		System.out.println(xPoints.size());
+		System.out.println(yPoints.size());
 		}
 		//System.out.println(IJ.doWand(275, 164,1,"4-connected"));
 		

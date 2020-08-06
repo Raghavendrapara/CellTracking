@@ -45,13 +45,16 @@ public class GroundTruthExtractor {
 	{
 		trainCnt=trainCount;
 	}
-	    	public void getValues() throws IOException {
+
+	public void getValues(String path) throws IOException {
+	
 		// TODO Auto-generated method stub
 	    //Change into formal form
-		String inputPath="/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"; 
+		String inputPath=path; 
 		
 		GroundTruthExtractor extracter= new GroundTruthExtractor();
 		List<String> images=extracter.loadImages(inputPath);
+		
 		//System.out.println(images.size());
 	     RoiManager roiManager= new RoiManager();
 		//roi=new Roi[images.size()][10];
@@ -62,8 +65,6 @@ public class GroundTruthExtractor {
 		// break;
 		 
 		}
-	//    for(int i=0;i<10 && roi[0][i]!=null;i++)
-		//System.out.println(roi[0][i].getContourCentroid()[0]+"                     "+roi[114][i].getContourCentroid()[1]);
 	
 	
 	private File[] sortImages(File[] images) {
@@ -111,7 +112,7 @@ public class GroundTruthExtractor {
 	}
 	
 	public void runextracter(ImagePlus currentImage, RoiManager roiManager, int minThreshold, int maxThreshold,int frameNum) throws IOException{
-        ResultsTable xx=new ResultsTable();
+        ResultsTable tempResults=new ResultsTable();
 		for(int threshold=minThreshold; threshold<=maxThreshold; threshold++) {
 			ImagePlus copyImage= currentImage.duplicate();
 			
@@ -126,40 +127,40 @@ public class GroundTruthExtractor {
 				ip.invert();
 			//	temp.show();
 				ParticleAnalyzer.setRoiManager(roiManager);
-				ParticleAnalyzer analyzer= new ParticleAnalyzer(ParticleAnalyzer.ADD_TO_MANAGER,Analyzer.getMeasurements(),xx,1.0, Double.POSITIVE_INFINITY);
+				ParticleAnalyzer analyzer= new ParticleAnalyzer(ParticleAnalyzer.ADD_TO_MANAGER,Analyzer.getMeasurements(),tempResults,1.0, Double.POSITIVE_INFINITY);
 				analyzer.analyze(temp);
 				Analyzer.setMeasurements(65536-1);
-				xx=Analyzer.getResultsTable();
+				tempResults=Analyzer.getResultsTable();
 				}
 			
 		}
 		
 	
-     	String arr[]=xx.getHeadings();
+     	String arr[]=tempResults.getHeadings();
   //   System.out.println(Arrays.toString(arr));
-		int n=arr.length;
+		int attributesLength=arr.length;
 	//	System.out.println(n+"  "+xx.size());
-	    double val[]=new double[n];
+	    double val[]=new double[attributesLength];
 		
-		for(int k=0;k<xx.size();k++)
+		for(int k=0;k<tempResults.size();k++)
 		{
-			String ss=xx.getRowAsString(k);
-			ss=ss.replace("	"," ");
-			ss=ss.substring(ss.indexOf(" "));
-			ss.trim();
+			String tempRow=tempResults.getRowAsString(k);
+			tempRow=tempRow.replace("	"," ");
+			tempRow=tempRow.substring(tempRow.indexOf(" "));
+			tempRow.trim();
 			
 			//System.out.println(ss);
-			StringTokenizer cc=new StringTokenizer(ss);
+			StringTokenizer valuesString=new StringTokenizer(tempRow);
 		
-			for(int k1=0;k1<n;k1++)
+			for(int k1=0;k1<attributesLength;k1++)
 				if(k1==0)
-					{val[k1]=frameNum;String discardToken=cc.nextToken();}
-				else val[k1]=Double.valueOf(cc.nextToken());
+					{val[k1]=frameNum;String discardToken=valuesString.nextToken();}
+				else val[k1]=Double.valueOf(valuesString.nextToken());
 				
 	//		System.out.println(val.length);
-			Features xy=new Features(arr,val);
+			Features tempFeature=new Features(arr,val);
 		//	System.out.println(xy.getFeatureName().get(1));
-			featureSet.add(xy);
+			featureSet.add(tempFeature);
 		}
 		
 		//xx.show("Table");
@@ -172,7 +173,7 @@ public class GroundTruthExtractor {
 			//System.out.println();}
 		
 		
-		xx.reset();
+		tempResults.reset();
 
 	/*	Roi r[]=roiManager.getRoisAsArray();
 		roiManager.reset();
