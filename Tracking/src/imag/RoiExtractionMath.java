@@ -16,15 +16,13 @@ import ij.plugin.filter.RankFilters;
 import ij.plugin.frame.RoiManager;
 import ij.process.FloatProcessor;
 import ij.process.ImageProcessor;
-public class WandSubtract {
+public class RoiExtractionMath {
 	private static List<String> images=new ArrayList<>();
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-       File a=new File("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG");
-	   String arr[]=a.list(); 
+	
 		  
         //find no. of entries in the directory 
-         int n=loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG"); 
+         int stackSize=loadImages("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG"); 
          
         //displaying the entries 
          
@@ -32,30 +30,30 @@ public class WandSubtract {
 		//System.out.println(x);
 		
 		new ImageJ();
-		for (int k = 0; k < n ; k++) {
+		for (int k = 0; k < stackSize ; k++) {
 		IJ.log("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"+images.get(k));
 		//IJ.run("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/man_seg000.tif");
-		ImagePlus fi=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"+images.get(k));
-	    ImageProcessor ip=fi.getProcessor();
+		ImagePlus tempIP=IJ.openImage("/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"+images.get(k));
+	    ImageProcessor ip=tempIP.getProcessor();
 		//int width=ip.getWidth();
 		//int height=ip.getHeight();
 		//fi.show();
 		//System.out.println(width);
-		Wand wa=new Wand(ip);
-		HashSet<ArrayList<Integer>> x=new HashSet<>();
-		HashSet<ArrayList<Integer>> y=new HashSet<>();
+		Wand wand=new Wand(ip);
+		HashSet<ArrayList<Integer>> xPoint=new HashSet<>();
+		HashSet<ArrayList<Integer>> yPoint=new HashSet<>();
 		
 		//HashSet<Integer>
 		//To add technique for filling using subtract or fill Polygon
-		for(int f=1;f<=5;f++) {
+		for(int f=1;f<=255;f++) { //8-bit image
 		for(int i1=0;i1<696;i1++)
 			for(int j=0;j<520;j++) 
 			{
 		             if(ip.getValue(i1,j)==1) 
 		             {
-				      wa.autoOutline(i1,j);
-				      x.add(convert(wa.xpoints));
-				      y.add(convert(wa.ypoints));
+				      wand.autoOutline(i1,j);
+				      xPoint.add(convert(wand.xpoints));
+				      yPoint.add(convert(wand.ypoints));
 		              ip.subtract(1.0);
 		              i1=0;j=0;
 		              }    
@@ -63,8 +61,8 @@ public class WandSubtract {
 		ip.subtract(1);
 		}
 		      
-		System.out.println(x.size());
-		System.out.println(y.size());
+		System.out.println(xPoint.size());
+		System.out.println(yPoint.size());
 		}
 		//System.out.println(IJ.doWand(275, 164,1,"4-connected"));
 		

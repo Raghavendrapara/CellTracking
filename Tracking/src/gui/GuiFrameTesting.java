@@ -22,11 +22,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-public class Guitest {
+public class GuiFrameTesting {
 	static JTextField cnt;
 	static JButton ok;
 	public static final Font FONT = new Font( "Arial", Font.BOLD, 13 );
-	final static ActionEvent CANCEL = new ActionEvent( new Guitest(), 7, "cancel" );
+	final static ActionEvent CANCEL = new ActionEvent( new GuiFrameTesting(), 7, "cancel" );
 	public static void main(String[] args) {
 	    JFrame frame = new JFrame("Marking");	     
 		frame.setSize(1000, 1000);

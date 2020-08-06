@@ -3,12 +3,12 @@ package modelling;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Variable {
+public class EventParameters {
 
 	int mValue;				// Value of the Variable. Usually the number of times that an event occurs.
 	int mNumScores;			// The number of predefined scores.
 	ArrayList<Double> mScore;
-	Variable(int aValue, int aNumScores, ArrayList<Double> aScores)
+	EventParameters(int aValue, int aNumScores, ArrayList<Double> aScores)
 	{
 		mScore=new ArrayList<>(aScores.size());
 		mValue=aValue;

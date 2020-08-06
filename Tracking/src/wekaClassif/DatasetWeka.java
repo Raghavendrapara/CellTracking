@@ -22,30 +22,30 @@ public class DatasetWeka {
 	public static void main(String args[]) throws IOException 
 	{
 		
-	GroundTruthExtractor gb=new  GroundTruthExtractor(5);
+	GroundTruthExtractor gb=new  GroundTruthExtractor();
 	//int j=getNumFrame();
 	new ImageJ();
-	
+	String path="/home/raghavendra/Desktop/SEG";
 	ArrayList<Attribute> attributes = new ArrayList<Attribute>();
-	gb.getValues();
+
 	ArrayList<Features> feat=gb.featureSet;
 	for(String ky:feat.get(0).featureNames.values())
         attributes.add(new Attribute(ky));
     
-	List<String> l=new ArrayList<>();
-    l.add("0");l.add("1");
-	attributes.add(new Attribute("class",l));
+	List<String> classList=new ArrayList<>();
+    classList.add("0");classList.add("1");
+	attributes.add(new Attribute("class",classList));
 	//System.out.println(attributes.toString());
 	WekaTrain=new Instances("Tracking",attributes,1);
 	WekaTrain.setClassIndex(WekaTrain.numAttributes()-1);
 	//System.out.println(feat.size());
 	for(int i=0;i<feat.size();i++)
 	{
-		HashMap<Integer,Double> hh=feat.get(i).featureValues;
-		Collection arr=hh.values();
-		String ar=arr.toString();
+		HashMap<Integer,Double> featureValueSet=feat.get(i).featureValues;
+		Collection arr=featureValueSet.values();
+		String featuresAsArray=arr.toString();
 		////System.out.println(arr);
-		String str[]=ar.split(" ");
+		String str[]=featuresAsArray.split(" ");
 	//for(int k=0;k<str.length;k++)
 	//System.out.print(str[k]+" ");
 
@@ -58,14 +58,14 @@ WekaTrain.add(new DenseInstance(1.0,convert(str)));
 System.out.println(WekaTrain.toString());
 		
 	}
-	static double[] convert(String []ar)
+	static double[] convert(String []values)
 	{
-		double arr[]=new double[ar.length];
-		for(int k=0;k<ar.length;k++)
+		double arr[]=new double[values.length];
+		for(int k=0;k<values.length;k++)
 		{
 		
 			String regex="([0-9]+[.][0-9]+)";
-			String input= ar[k];
+			String input= values[k];
 
 			Pattern pattern=Pattern.compile(regex);
 			Matcher matcher=pattern.matcher(input);

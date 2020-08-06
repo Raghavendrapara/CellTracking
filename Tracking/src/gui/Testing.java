@@ -5,7 +5,6 @@ package gui;
 import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -24,8 +23,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -33,18 +30,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import ij.IJ;
 import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
-import ij.gui.ImageWindow;
-import ij.gui.Roi;
 import ij.plugin.frame.RoiManager;
-import ij.process.ImageConverter;
 import ij.process.ImageProcessor;
 import static gui.ASCommon.*;
 
@@ -59,12 +51,9 @@ public class Testing {
 	private static ActionEvent NEXT_BUTTON_PRESSED = new ActionEvent( new Testing(), 0, "Next" );
 	/** This {@link ActionEvent} is fired when the 'previous' button is pressed. */
 	private static ActionEvent PREVIOUS_BUTTON_PRESSED = new ActionEvent( new Testing(), 1, "Previous" );
-	private static ActionEvent ADDCLASS_BUTTON_PRESSED = new ActionEvent( new Testing(), 2, "AddClass" );
-	private static ActionEvent SAVECLASS_BUTTON_PRESSED= new ActionEvent( new Testing(), 3, "SaveLabel" );
 	private static ActionEvent COMPUTE_BUTTON_PRESSED  = new ActionEvent( new Testing(), 5, "TRAIN" );
 	private static ActionEvent SAVE_BUTTON_PRESSED  = new ActionEvent( new Testing(), 6, "SAVEDATA" );
 	private static ActionEvent TOGGLE_BUTTON_PRESSED = new ActionEvent( new Testing(), 7, "TOGGLE" );
-	private static ActionEvent DOWNLOAD_BUTTON_PRESSED = new ActionEvent( new Testing(), 8, "DOWNLOAD" );
 	private static ActionEvent MASKS_BUTTON_PRESSED = new ActionEvent( new Testing(), 8, "MASKS" );
  
 
@@ -304,39 +293,7 @@ System.out.println("Start to Label");
 			
 		}
 
-			if(event == PREVIOUS_BUTTON_PRESSED){			
-				ImageProcessor img=train.getProcessor(1);
-				set
-				
-								
-				if (showColorOverlay){
-					if(featureManager.getProjectType()==ProjectType.CLASSIF) 
-						classifiedImage = null;
-					else 
-						classifiedImage=featureManager.getClassifiedImage();		
-					updateResultOverlay(classifiedImage);
-				}
-
-				// force limit size of image window
-				if(ic.getWidth()>IMAGE_CANVAS_DIMENSION) {
-					int x_centre = ic.getWidth()/2+ic.getX();
-					int y_centre = ic.getHeight()/2+ic.getY();
-					ic.zoomIn(x_centre,y_centre);
-				}			
-				updateGui();
-			} // end if
 			
-			if(event==NEXT_BUTTON_PRESSED  ){			
-				ImagePlus image=featureManager.getNextImage();
-				imageNum.setText(Integer.toString(featureManager.getCurrentSlice()));
-				loadImage(image);
-				if (showColorOverlay){
-					if(featureManager.getProjectType()==ProjectType.CLASSIF)
-						classifiedImage = null;
-					else
-						classifiedImage=featureManager.getClassifiedImage();
-					updateResultOverlay();
-				}
 
 				// force limit size of image window
 				if(ic.getWidth()>IMAGE_CANVAS_DIMENSION) {
@@ -345,7 +302,7 @@ System.out.println("Start to Label");
 					ic.zoomIn(x_centre,y_centre);
 				}
 				//imagePanel.add(ic);
-			} // end if
+			
 			
 
 			
@@ -476,7 +433,7 @@ static void Process(String fileName)
 	JOptionPane.showMessageDialog(events,"Size=  "+images.size());
 	new ImageJ();
  
-    JTextField imageNum=new JTextField();
+    new JTextField();
     
 	//ImagePlus fi=new ImagePlus(fileName+"/"+images.get(1));
 	//fi.show();
