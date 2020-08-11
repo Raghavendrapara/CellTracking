@@ -62,7 +62,7 @@ public static void main(String args[])
 	temptrial.insert(8,null);
 	temptrial.insert(9,null);
 	temptrial.insert(10,null);
-	temptrial.insert(11,"r");
+	//temptrial.insert(11,"r");
 	
 	
 	Queue<TreeNode> bfsqueue=new LinkedList<TreeNode>();
