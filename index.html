@@ -13,7 +13,8 @@
   <body>
     <section class="page-header">
       <h1 class="project-name">Active Segmentation-Cell Tracking</h1>
-        <h2 class="project-tagline">Cell Tracking Project under Active Segmentation Plugin for ImageJ - GSOC 2020</h2>
+      <h2 class="project-purpose">Google Summer Of Code 2020</h2>
+        <h3 class="project-tagline">Cell Tracking Project under Active Segmentation Plugin for ImageJ</h3>
       <a href="https://github.com/Raghavendrapara/CellTracking" class="btn">View on GitHub</a>
        <a href="https://github.com/Raghavendrapara/ACTIVESEGMENTATION/commits/CellTrack" class="btn">View Commits to ActiveSegmentation</a>
        <a href="https://sumit3203.github.io/" class="btn">For more info on ActiveSegmentation</a>
@@ -42,9 +43,14 @@ The Active Segmentation platform for ImageJ (ASP/IJ) was developed in the scope 
 Cell Tracking has gained importance in recent times due to the growing extensive research in Biology. It has become evident that in order to take full advantage of the potential wealth of information hidden in the data produced by cellular experiments, visual inspection and manual analysis are no longer adequate. To ensure efficiency, consistency, and completeness in data processing and analysis, computational tools are essential. Of particular importance to many modern live-cell imaging experiments is the ability to automatically track and analyze the motion of cell objects in images recorded using time-lapse microscopy.
 <br>
 <br>
-In this(2020) edition of Google summer of code I have worked on extending the Active-Segmentation Plug-In to perform Cell Tracking on Segmented Stack. The technique employed is based on a research paper titled <a href="https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf">Global Linking Of Cell Tracks Using The Viterbi Algorithm</a> by Klas E.G Magnusson, Joakim Jalden, Penney M. Gilbert &  Helen M. Blau. 
+In this(2020) edition of Google summer of code I have worked on extending the Active-Segmentation Plug-In to perform Cell Tracking on Segmented Stack. The technique employed is based on the Viterbi Algorithm widely used in Digital Communications and Natural Language Processing. I would also like to acknowledge the research paper, from where I derive the foundational idea for my project, titled <a href="https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf">Global Linking Of Cell Tracks Using The Viterbi Algorithm</a> by Klas E.G Magnusson, Joakim Jalden, Penney M. Gilbert &  Helen M. Blau. 
 <br>
+We start with a image stack and develop a Trellis of states i.e. Detections/Extractions that allows modelling of the images and cells in the form of a Graph. 
 <p>Active Segmentation-Cell Tracking Fixed Event Based Training<img src="Images/Training.png"> </p>
+ <p>Cell Tracking Trellis Of States Graph with edges laden with weights equivalent to scores corresponding to events. <img src="Images/1.png"> </p>
+<br>
+For more information on the project and idea you can refer <a href="https://docs.google.com/presentation/d/1Rx_-JiC9foyHs3ZAdX_37jRgOOl6WfSTX3nAg0Fi2tg/edit?usp=sharing">here</a> to my PPT on Viterbi Algorithm and Cell Tracking.
+<br>
  
   <h2><a href="https://github.com/raghavendrapara/CellTracking/issues"> Link to Bug list in Cell Tracking </a></h2>
    <h2><a href="https://github.com/sumit3203/ACTIVESEGMENTATION/issues"> Link to Bug list in ActiveSegmentation </a></h2>
