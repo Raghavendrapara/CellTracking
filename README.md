@@ -16,11 +16,18 @@ In this(2020) edition of Google summer of code I have worked on extending the Ac
 
 We start with a image stack and develop a Trellis of states i.e. Detections/Extractions that allows modelling of the images and cells in the form of a Graph.
 
+For more info on Cell Tracking using Viterbi Algorithm one can refer to my PPT [here](https://docs.google.com/presentation/d/1Rx_-JiC9foyHs3ZAdX_37jRgOOl6WfSTX3nAg0Fi2tg/edit?usp=sharing)
 Phase 1 We worked on incorporating code for extracting ROIs from Segmented Images based on a experimental database and moves on to define Class definitons and behaviour for solving the Tracking Problem.Starting with defining a Trellis of states for the Image Stack.
 
 A still from Fixed Event Model based Training
 ![ScreenShot](https://github.com/Raghavendrapara/CellTracking/blob/GitHubPage/Images/Training.png) 
  
 Phase 2 We implemented backend for Viterbi Algorithm implementation and worked on GUI part in Active Segmentation plugin.[View my commits to ActiveSeg fork](https://github.com/Raghavendrapara/ACTIVESEGMENTATION/commits/CellTrack)
+
+Trellis Of States of Cell Detections(Ref-Klas Magnusson Cell Tracking Paper)
+![ScreenShot](https://github.com/Raghavendrapara/CellTracking/blob/GitHubPage/Images/1.png)
+
+Random Forest Graph that we desire as output(Ref-Klas Magnusson Paper
+![ScreenShot](https://github.com/Raghavendrapara/CellTracking/blob/GitHubPage/Images/2.png)
 
 Phase 3 Our basic frontend and backend was complete and we worked on a sample use case implementation to test the viability for future modifications.
