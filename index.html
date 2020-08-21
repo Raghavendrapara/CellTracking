@@ -34,24 +34,32 @@ Mentor: <a href="https://be.linkedin.com/in/dprodanov">Dimiter Prodanov </a> <a 
 <h1>
 <a id="project-description" class="anchor" href="#project-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project description</h1>
 
-<p><br>
+<p>
+<h3>Active Segmentation</h3>
 The Active Segmentation platform for ImageJ (ASP/IJ) was developed in the scope of GSOC 2016 - 2018. The plug-in provides a general-purpose environment that allows biologists and other domain experts to use transparently state-of-the-art techniques in machine learning to achieve excellent image segmentation.
 <br>
-<br> ImageJ is a public domain Java image processing program extensively used in life and material sciences. The program was designed with an open architecture that provides extensibility via plug-ins.
+<h3>ImageJ Software</h3>
+ ImageJ is a public domain Java image processing program extensively used in life and material sciences. The program was designed with an open architecture that provides extensibility via plug-ins.
 <br>
 <br>
+<h3>Need For Cell Tracking</h3>
 Cell Tracking has gained importance in recent times due to the growing extensive research in Biology. It has become evident that in order to take full advantage of the potential wealth of information hidden in the data produced by cellular experiments, visual inspection and manual analysis are no longer adequate. To ensure efficiency, consistency, and completeness in data processing and analysis, computational tools are essential. Of particular importance to many modern live-cell imaging experiments is the ability to automatically track and analyze the motion of cell objects in images recorded using time-lapse microscopy.
 <br>
 <br>
+<h3>Project Work during GSoc Period 2020 </h3>
 In this(2020) edition of Google summer of code I have worked on extending the Active-Segmentation Plug-In to perform Cell Tracking on Segmented Stack. The technique employed is based on the Viterbi Algorithm widely used in Digital Communications and Natural Language Processing. I would also like to acknowledge the research paper, from where I derive the foundational idea for my project, titled <a href="https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf">Global Linking Of Cell Tracks Using The Viterbi Algorithm</a> by Klas E.G Magnusson, Joakim Jalden, Penney M. Gilbert &  Helen M. Blau. 
 <br>
 <br>
+We started with a single purpose repository <a href="https://github.com/Raghavendrapara/CellTracking">CellTracking</a> for backend implementation of the algorithm and further integration and GUI developments were done inside ActiveSegmentation clone with <a href="https://github.com/Raghavendrapara/ACTIVESEGMENTATION/commits/CellTrack">my commits listed here</a> 
+<br>
+<br>
+<h3>A Sample Use Case Presentation Video</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/D0U7vfyyZTU?start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br><br>We start with a image stack and develop a Trellis of states i.e. Detections/Extractions that allows modelling of the images and cells in the form of a Graph. 
 <p>Active Segmentation-Cell Tracking Fixed Event Based Training<img src="Images/Training.png"> </p>
  <p>Cell Tracking Trellis Of States Graph with edges laden with weights equivalent to scores corresponding to events.<a href="https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf">Ref-Klas Magnusson Cell Tracking Paper</a> <img src="Images/1.png"> </p>
 <br>
-For more information on the project and idea you can refer <a href="https://docs.google.com/presentation/d/1Rx_-JiC9foyHs3ZAdX_37jRgOOl6WfSTX3nAg0Fi2tg/edit?usp=sharing">here</a> to my PPT on Viterbi Algorithm and Cell Tracking.
+For more information on the project and idea you can refer <a href="https://docs.google.com/presentation/d/1Rx_-JiC9foyHs3ZAdX_37jRgOOl6WfSTX3nAg0Fi2tg/edit?usp=sharing">here to my PPT on Viterbi Algorithm and Cell Tracking</a>.
 <br>
 <h3> Scope For Improvisations </h3>
 <ul>
