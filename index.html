@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Active Segmentation</title>
+    <title>ActiveSeg CellTracking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -13,16 +13,19 @@
   <body>
     <section class="page-header">
       <h1 class="project-name">Active Segmentation-Cell Tracking</h1>
-        <h2 class="project-tagline">Cell Tracking Project under Active Segmentation Plugin for ImageJ - GSOC 2020</h2>
+      <h2 class="project-purpose">Google Summer Of Code 2020</h2>
+        <h3 class="project-tagline">Cell Tracking Project under Active Segmentation Plugin for ImageJ</h3>
       <a href="https://github.com/Raghavendrapara/CellTracking" class="btn">View on GitHub</a>
-     </section>
+       <a href="https://github.com/Raghavendrapara/ACTIVESEGMENTATION/commits/CellTrack" class="btn">View Commits to ActiveSegmentation</a>
+       <a href="https://sumit3203.github.io/" class="btn">For more info on ActiveSegmentation</a>
+         </section>
 
     <section class="main-content">
 	<h1>
 <a id="developers" class="anchor" href="#developers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developers</h1>
 
 <p>Student: <a href="raghavendra0360@gmail.com">Raghavendra Singh Chauhan</a><br>
-Mentor: <a href="dimiterpp@gmail.com">Dimiter Prodanov </a> <a href="sumit.3203@gmail.com">Sumit Kumar Vohra</a><br>
+Mentor: <a href="https://be.linkedin.com/in/dprodanov">Dimiter Prodanov </a> <a href="https://www.zib.de/node/3478">Sumit Kumar Vohra</a><br>
 <h1>
 <a id="organization" class="anchor" href="#organization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Organization:</h1>
 
@@ -31,21 +34,38 @@ Mentor: <a href="dimiterpp@gmail.com">Dimiter Prodanov </a> <a href="sumit.3203@
 <h1>
 <a id="project-description" class="anchor" href="#project-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project description</h1>
 
-<p>Trial.<br>
-ImageJ is a public domain Java image processing program extensively used in life sciences.
-Active Segmentation plugin is the redesign of existing Trainable Weka Segmentation (TWS) of
-ImageJ. The main functionality of the platform was already developed in the context of GSOC
-2016 but the platform is still under development. 
-The Active Segmentation provides generic functionality and user friendly interface so that the user can include the state of the art filters and 
-machine learning frameworks from the WEKA library:
-<ul>
-<li>Active learning.</li>
-<li>Multi-instance learning designed by third party in a robust manner </li>
-</ul>
-In this Google summer of code 2020
+<p><br>
+The Active Segmentation platform for ImageJ (ASP/IJ) was developed in the scope of GSOC 2016 - 2018. The plug-in provides a general-purpose environment that allows biologists and other domain experts to use transparently state-of-the-art techniques in machine learning to achieve excellent image segmentation.
 <br>
- 
-  
+<br> ImageJ is a public domain Java image processing program extensively used in life and material sciences. The program was designed with an open architecture that provides extensibility via plug-ins.
+<br>
+<br>
+Cell Tracking has gained importance in recent times due to the growing extensive research in Biology. It has become evident that in order to take full advantage of the potential wealth of information hidden in the data produced by cellular experiments, visual inspection and manual analysis are no longer adequate. To ensure efficiency, consistency, and completeness in data processing and analysis, computational tools are essential. Of particular importance to many modern live-cell imaging experiments is the ability to automatically track and analyze the motion of cell objects in images recorded using time-lapse microscopy.
+<br>
+<br>
+In this(2020) edition of Google summer of code I have worked on extending the Active-Segmentation Plug-In to perform Cell Tracking on Segmented Stack. The technique employed is based on the Viterbi Algorithm widely used in Digital Communications and Natural Language Processing. I would also like to acknowledge the research paper, from where I derive the foundational idea for my project, titled <a href="https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf">Global Linking Of Cell Tracks Using The Viterbi Algorithm</a> by Klas E.G Magnusson, Joakim Jalden, Penney M. Gilbert &  Helen M. Blau. 
+<br>
+<br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/D0U7vfyyZTU?start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br><br>We start with a image stack and develop a Trellis of states i.e. Detections/Extractions that allows modelling of the images and cells in the form of a Graph. 
+<p>Active Segmentation-Cell Tracking Fixed Event Based Training<img src="Images/Training.png"> </p>
+ <p>Cell Tracking Trellis Of States Graph with edges laden with weights equivalent to scores corresponding to events.<a href="https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf">Ref-Klas Magnusson Cell Tracking Paper</a> <img src="Images/1.png"> </p>
+<br>
+For more information on the project and idea you can refer <a href="https://docs.google.com/presentation/d/1Rx_-JiC9foyHs3ZAdX_37jRgOOl6WfSTX3nAg0Fi2tg/edit?usp=sharing">here</a> to my PPT on Viterbi Algorithm and Cell Tracking.
+<br>
+<h3> Scope For Improvisations </h3>
+<ul>
+<li>Improve on GUI for displaying Tracks in a elegant manner</li>
+<li>Incorporate ML Classifiers for better tracking results</li>
+<li>Implement Swap functionality for optimizing run time</li>
+</ul>
+
+<h3>Future Developments</h3>
+<ul>
+<li>Extending current tracking module with deep learning techniques</li>
+<li>Expanding user interaction and implementing better User Interface </li>
+<li>Optimizing efficiency and incfreasing accuracy to deal with faulty segmentation </li>
+</ul>
     </section>
   
   </body>
