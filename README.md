@@ -9,8 +9,8 @@ This project is sponsored by Google Inc. as a part of the Google Summer of Code 
 ## Project description
 A Track Linking package based on Viterbi Dynamic Programming Algorithm.
 
-###
-This repository contains some methods that work in backend for the algorithm implementation and further work was done in tandem with the Active Segmentation repository for frontend GUI portion.
+
+###This repository contains some methods that work in backend for the algorithm implementation and further work was done in tandem with the Active Segmentation repository for frontend GUI portion.
 
 In this(2020) edition of Google summer of code I have worked on extending the Active-Segmentation Plug-In to perform Cell Tracking on Segmented Stack. The technique employed is based on the Viterbi Algorithm widely used in Digital Communications and Natural Language Processing. I would also like to acknowledge the research paper, from where I derive the foundational idea for my project, titled [Global Linking Of Cell Tracks Using The Viterbi Algorithm](https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf)by Klas E.G Magnusson, Joakim Jalden, Penney M. Gilbert &  Helen M. Blau. 
 
