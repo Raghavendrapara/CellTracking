@@ -34,14 +34,14 @@ Random Forest Graph that we desire as output(Ref-Klas Magnusson Paper
 
 Phase 3 Our basic frontend and backend was complete and we worked on a sample use case implementation to test the viability for future modifications.
 
-##Scope for Improvements
+**Scope for Improvements**
 <ul>
 <li>Improve on GUI for displaying Tracks in a elegant manner</li>
 <li>Incorporate ML Classifiers for better tracking results</li>
 <li>Implement Swap functionality for optimizing run time</li>
 </ul>
 
-##Future developments 
+**Future developments** 
 <ul>
 <li>Extending current tracking module with deep learning techniques</li>
 <li>Expanding user interaction and implementing better User Interface </li>
