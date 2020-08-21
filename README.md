@@ -24,10 +24,26 @@ A still from Fixed Event Model based Training
  
 Phase 2 We implemented backend for Viterbi Algorithm implementation and worked on GUI part in Active Segmentation plugin.[View my commits to ActiveSeg fork](https://github.com/Raghavendrapara/ACTIVESEGMENTATION/commits/CellTrack)
 
+##Training Panel
 Trellis Of States of Cell Detections(Ref-Klas Magnusson Cell Tracking Paper)
 ![ScreenShot](https://github.com/Raghavendrapara/CellTracking/blob/GitHubPage/Images/1.png)
+
 
 Random Forest Graph that we desire as output(Ref-Klas Magnusson Paper
 ![ScreenShot](https://github.com/Raghavendrapara/CellTracking/blob/GitHubPage/Images/2.png)
 
 Phase 3 Our basic frontend and backend was complete and we worked on a sample use case implementation to test the viability for future modifications.
+
+##Scope for Improvements
+<ul>
+<li>Improve on GUI for displaying Tracks in a elegant manner</li>
+<li>Incorporate ML Classifiers for better tracking results</li>
+<li>Implement Swap functionality for optimizing run time</li>
+</ul>
+
+##Future developments 
+<ul>
+<li>Extending current tracking module with deep learning techniques</li>
+<li>Expanding user interaction and implementing better User Interface </li>
+<li>Optimizing efficiency and incfreasing accuracy to deal with faulty segmentation </li>
+</ul>
