@@ -11,3 +11,4 @@ A Track Linking package based on Viterbi Dynamic Programming Algorithm.
 
 Phase 1 incorporates code for extracting ROIs from Segmented Images based on a experimental database and moves on to define Class definitons and behaviour for solving the Tracking Problem.Starting with defining a Trellis of states for the Image Stack.
  
+Phase 2 I implemented backend for Viterbi Algorithm implementation and worked on GUI part in Active Segmentation plugin.[View my commits to ActiveSeg fork](https://github.com/Raghavendrapara/ACTIVESEGMENTATION/commits/CellTrack)
