@@ -48,7 +48,14 @@ Cell Tracking has gained importance in recent times due to the growing extensive
 <br>
 <h3>Project Work during GSoc Period 2020 </h3>
 In this(2020) edition of Google summer of code I have worked on extending the Active-Segmentation Plug-In to perform Cell Tracking on Segmented Stack. The technique employed is based on the Viterbi Algorithm widely used in Digital Communications and Natural Language Processing. I would also like to acknowledge the research paper, from where I derive the foundational idea for my project, titled <a href="https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf">Global Linking Of Cell Tracks Using The Viterbi Algorithm</a> by Klas E.G Magnusson, Joakim Jalden, Penney M. Gilbert &  Helen M. Blau. 
-<br>
+<br><br>
+<ul>
+
+<li>Phase 1 We worked on extraction of data from Segmented Stack and representation of the extracted data as a model suitable for Viterbi Algorithm<br>
+<br><li>Phase 2 We focused on defining framework for the System and experimenting with Weka Classifiers for defining probabilities of Cell events. I also started with the integration of my work in Active Segmentation to further work on the GUI for Tracking.<br>
+<br><li>Phase 3 Our focus shifted towards a basic use case implementation for Cell Tracking using Viterbi Algorithm.I worked on the GUI for track display using colors and tracking migrations in a Segmented Stack.  
+</ul>
+
 <br>
 We started with a single purpose repository <a href="https://github.com/Raghavendrapara/CellTracking">CellTracking</a> for backend implementation of the algorithm and further integration and GUI developments were done inside ActiveSegmentation clone with <a href="https://github.com/Raghavendrapara/ACTIVESEGMENTATION/commits/CellTrack">my commits listed here</a> 
 <br><br>
@@ -58,7 +65,7 @@ The project was approached with divide and conquer methodology. I have listed my
 <h3>A Sample Use Case Presentation Video</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/D0U7vfyyZTU?start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<br><br>
+<br><br><br>
 
 We start with a image stack and develop a Trellis of states i.e. Detections/Extractions that allows modelling of the images and cells in the form of a Graph. 
 <p>Active Segmentation-Cell Tracking Fixed Event Based Training<img src="Images/Training.png"> </p>
