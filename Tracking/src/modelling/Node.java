@@ -3,6 +3,7 @@ package modelling;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import ij.gui.Roi;
 
 public class Node {
@@ -53,7 +54,49 @@ public class Node {
 	{
 		return backwardArc.get(indx);
 	}
-	
+	public Object getNextEvent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Object getPrevCell() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Node getChild(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public boolean hasNextCell() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	public boolean hasChildren() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	public State getState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Node getNextCell() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 //	@SuppressWarnings("static-access")
 /*	void getFeatureMap(int i,int j) throws IOException
 	{

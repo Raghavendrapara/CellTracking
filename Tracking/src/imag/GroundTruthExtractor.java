@@ -1,15 +1,19 @@
 package imag;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ij.CompositeImage;
 import ij.IJ;
+import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
 import ij.LookUpTable;
@@ -28,36 +32,22 @@ import ij.process.ImageProcessor;
 public class GroundTruthExtractor {
 
 	//static Roi roi[][];
-	
-	private static int trainCnt;
-	private static String path;
+	//public static ArrayList<TrackTrainingFeatures> featureSet=new ArrayList<>();
+	static int trainCnt;
 	public ArrayList<Features> featureSet;
 	
-	
+	public GroundTruthExtractor() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public GroundTruthExtractor(int trainCount)
 	{
 		trainCnt=trainCount;
 	}
-	
-	
-
-	public GroundTruthExtractor() {
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	public static void setPath(String apath)
-	{
-		path=apath;
-	}
-	
-	
-	public void getValues() {
+	    	public void getValues() {
 		// TODO Auto-generated method stub
 	    //Change into formal form
-		String inputPath=path; 
+		String inputPath="/home/raghavendra/Downloads/PhC-C2DH-U373/01_ST/SEG/"; 
 		
 		GroundTruthExtractor extracter= new GroundTruthExtractor(1);
 		List<String> images=extracter.loadImages(inputPath);
@@ -191,7 +181,9 @@ public class GroundTruthExtractor {
 		for(Roi rr:r)
 		listroi.add(rr);
 		currentImage.killRoi();
+		roiManager.reset();
 		return listroi;
+		
 		
 	}
 	
