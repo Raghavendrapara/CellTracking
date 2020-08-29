@@ -37,7 +37,12 @@ Random Forest Graph that we desire as output(Ref-Klas Magnusson Paper)
 ![ScreenShot](https://github.com/Raghavendrapara/CellTracking/blob/GitHubPage/Images/2.png)
 
 Phase 3 Our basic frontend and backend was complete and we worked on a sample use case implementation to test the viability for future modifications.
-
+**References**
+<ul>
+ <li>Global Linking Of Cell Tracks Using Viterbi Algorithm-Klas Magnusson</li>
+ <li>Efficient Algorithms for Moral Lineage Tracing-Florian Jug</li>
+ <li>Min Cost Flow Network based Object Tracking</li>
+ 
 **Scope for Improvements**
 <ul>
 <li>Improve on GUI for displaying Tracks in a elegant manner</li>
