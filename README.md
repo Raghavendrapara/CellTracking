@@ -5,7 +5,7 @@ This project is sponsored by Google Inc. as a part of the Google Summer of Code 
 1. **Organization:** [International Neuroinformatics Coordinating Facility(INCF)](http://incf.org)
 2. **Mentor:** Dimiter Prodanov, [INCF Belgian Node](http://www.neuroinformatics.be), Sumit Vohra, ZIB
 3. **Student Developer:** [Raghavendra Singh Chauhan](https://github.com/Raghavendra)
-
+4. **Parent Project:** [ActiveSegmentation](https://sumit3203.github.io)
 ## Project description
 A Track Linking package based on Viterbi Dynamic Programming Algorithm.
 
