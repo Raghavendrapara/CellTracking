@@ -43,26 +43,26 @@ The Active Segmentation platform for ImageJ (ASP/IJ) was developed in the scope 
 <br>
 <br>
 <h3>Need For Cell Tracking</h3>
-Cell Tracking has gained importance in recent times due to the growing extensive research in Biology. It has become evident that in order to take full advantage of the potential wealth of information hidden in the data produced by cellular experiments, visual inspection and manual analysis are no longer adequate. To ensure efficiency, consistency, and completeness in data processing and analysis, computational tools are essential. Of particular importance to many modern live-cell imaging experiments is the ability to automatically track and analyze the motion of cell objects in images recorded using time-lapse microscopy.
+Cell Tracking has gained importance recently owing to extensive research in biological domains. It has become evident that if we want to take full advantage of the potential wealth of information hidden in the data produced by cellular experiments, visual inspection, and manual analysis are no longer adequate. To ensure efficiency, consistency, and completeness in data processing and analysis, computational tools are essential. Of particular importance to many modern live-cell imaging experiments is the ability to automatically track and analyze the motion of cell objects in images recorded using time-lapse microscopy.
 <br>
 <br>
-<h3>Project Work during GSoc Period 2020 </h3>
-In this(2020) edition of Google summer of code I have worked on extending the Active-Segmentation Plug-In to perform Cell Tracking on Segmented Stack. The technique employed is based on the Viterbi Algorithm widely used in Digital Communications and Natural Language Processing. I would also like to acknowledge the research paper, from where I derive the foundational idea for my project, titled <a href="https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf">Global Linking Of Cell Tracks Using The Viterbi Algorithm</a> by Klas E.G Magnusson, Joakim Jalden, Penney M. Gilbert &  Helen M. Blau. 
+<h3>Project Work during GSoC Period 2020 </h3>
+In this(2020) edition of Google Summer of Code, I have worked on extending the Active-Segmentation Platform to perform Cell Tracking on Segmented Stack of images. The technique employed is based on the Viterbi Algorithm, which is widely used in Digital Communications and Natural Language Processing. I would also like to acknowledge the research paper, from where I derive the foundational idea for my project, titled <a href="https://web.stanford.edu/group/blau/pdfs/Magnusson_Blau_2015.pdf">Global Linking Of Cell Tracks Using The Viterbi Algorithm</a> by Klas E.G Magnusson, Joakim Jalden, Penney M. Gilbert &  Helen M. Blau.<br><br> For viewing my GSoC 2020 Proposal for Incf project "Cell Tracking Using Geometrical Features" <a href="https://drive.google.com/file/d/1nuD2C-PyyeuOOdYXavlcQPecDSwTUogn/view?usp=sharing" > please click here </a> 
 <br><br>
 <ul>
 
-<li>Phase 1 We worked on extraction of data from Segmented Stack and representation of the extracted data as a model suitable for Viterbi Algorithm<br>
-<br><li>Phase 2 We focused on defining framework for the System and experimenting with Weka Classifiers for defining probabilities of Cell events. I also started with the integration of my work in Active Segmentation to further work on the GUI for Tracking.<br>
-<br><li>Phase 3 Our focus shifted towards a basic use case implementation for Cell Tracking using Viterbi Algorithm.I worked on the GUI for track display using colors and tracking migrations in a Segmented Stack.  
+<li>Phase 1 We worked on extraction of data from a Segmented Stack and representation of the extracted data as a model suitable for Viterbi Algorithm<br>
+<br><li>Phase 2 We focused on defining a framework for the System and experimenting with Weka Classifiers for defining probabilities of Cell events. I also started with the integration of my work in Active Segmentation to further work on the GUI for Tracking.<br>
+<br><li>Phase 3 Our focus shifted towards a basic use case implementation for Cell Tracking using the Viterbi Algorithm. I worked on the GUI for track display using colors and tracking migrations in a Segmented Stack.  
 </ul>
 
 <br>
-We started with a single purpose repository <a href="https://github.com/Raghavendrapara/CellTracking">CellTracking</a> for backend implementation of the algorithm and further integration and GUI developments were done inside ActiveSegmentation clone with <a href="https://github.com/Raghavendrapara/ACTIVESEGMENTATION/commits/CellTrack">my commits listed here</a> 
+We started with a single purpose repository <a href="https://github.com/Raghavendrapara/CellTracking">CellTracking</a> for backend implementation of the algorithm. Further integration and GUI developments were done inside ActiveSegmentation clone with <a href="https://github.com/Raghavendrapara/ACTIVESEGMENTATION/commits/CellTrack">my commits listed here</a> 
 <br><br>
-The project was approached with divide and conquer methodology. I have listed my weekly work as a Google doc. To view the weekly progress report please <a href="https://docs.google.com/document/d/1Z6vedMc3IFCEJJse9lma52jtWvInxC6Y0x3Kve2u7zk/edit?usp=sharing"> click here.</a>
+The project was approached with a divide and conquer methodology. I have listed my weekly work as a Google doc. To view the weekly progress report please <a href="https://docs.google.com/document/d/1Z6vedMc3IFCEJJse9lma52jtWvInxC6Y0x3Kve2u7zk/edit?usp=sharing"> click here.</a>
 <br>
 <br>
-<h3>A Sample Use Case Presentation Video</h3>
+<h3>A Sample Use Case Presentation Video With Overlapping Tracks ROIs</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/D0U7vfyyZTU?start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <br><br><br>
@@ -77,21 +77,22 @@ We start with a image stack and develop a Trellis of states i.e. Detections/Extr
 <p>An ImageSlice from tracked Stack with Colors representing Tracks<img src="Images/TrackedROis.png"> </p>
 <br>
 <h3>A section of Tracked ImageStack showing Tracks of Rois denoted by individual color</h3>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/OeDb_WLXVQA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<br><br><br>For more information on the project and idea you can refer <a href="https://docs.google.com/presentation/d/1Rx_-JiC9foyHs3ZAdX_37jRgOOl6WfSTX3nAg0Fi2tg/edit?usp=sharing">here to my PPT on Viterbi Algorithm and Cell Tracking</a>.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/AnxR5IxTyPM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br><br><br>For more information on the project and the idea, you can refer <a href="https://docs.google.com/presentation/d/1Rx_-JiC9foyHs3ZAdX_37jRgOOl6WfSTX3nAg0Fi2tg/edit?usp=sharing">here to my presentation on Viterbi Algorithm and Cell Tracking</a>.
 <br>
-<h3> Scope For Improvisations </h3>
+<h3> Scope For Improvements </h3>
 <ul>
-<li>Improve on GUI for displaying Tracks in a elegant manner</li>
+<li>Improve on GUI for displaying Tracks in an elegant manner</li>
 <li>Incorporate ML Classifiers for better tracking results</li>
 <li>Implement Swap functionality for optimizing run time</li>
 </ul>
 
 <h3>Future Developments</h3>
 <ul>
-<li>Extending current tracking module with deep learning techniques</li>
+<li>Extending the current tracking module with deep learning techniques</li>
 <li>Expanding user interaction and implementing better User Interface </li>
 <li>Optimizing efficiency and increasing accuracy to deal with faulty segmentation </li>
+<li>Implementing modern filters for de-noising Track estimates.</li>
 </ul>
     </section>
   
